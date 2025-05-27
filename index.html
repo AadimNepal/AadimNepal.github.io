@@ -217,7 +217,157 @@
             font-weight: 500;
         }
 
-        /* Responsive Design */
+        /* News Section */
+        .news-section {
+            margin-top: 4rem;
+        }
+
+        .news-section h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 2rem;
+        }
+
+        .news-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            height: 400px;
+            overflow-y: auto;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .news-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .news-box::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .news-box::-webkit-scrollbar-thumb {
+            background: #64b5f6;
+            border-radius: 4px;
+        }
+
+        .news-box::-webkit-scrollbar-thumb:hover {
+            background: #42a5f5;
+        }
+
+        .news-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .news-date {
+            font-size: 0.9rem;
+            color: #64b5f6;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .news-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .news-title a {
+            color: #64b5f6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .news-title a:hover {
+            color: #42a5f5;
+            text-decoration: underline;
+        }
+
+        .news-description {
+            color: #b0b0b0;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .news-description a {
+            color: #64b5f6;
+            text-decoration: none;
+        }
+
+        .news-description a:hover {
+            text-decoration: underline;
+        }
+
+        /* Publications Section */
+        .publications-section {
+            margin-top: 4rem;
+            display: none;
+        }
+
+        .publications-section.active {
+            display: block;
+        }
+
+        .publications-section h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 2rem;
+        }
+
+        .publication-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            line-height: 1.6;
+        }
+
+        .publication-number {
+            color: #64b5f6;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .publication-authors {
+            color: #e0e0e0;
+        }
+
+        .publication-title {
+            color: #ffffff;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .publication-venue {
+            color: #64b5f6;
+            font-style: italic;
+        }
+
+        .publication-year {
+            color: #b0b0b0;
+        }
+
+        /* Navigation active states */
+        .nav-links a.active {
+            color: #64b5f6;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
         @media (max-width: 768px) {
             .profile-section {
                 grid-template-columns: 1fr;
@@ -258,7 +408,7 @@
                     <li><a href="#blog">blog</a></li>
                     <li><a href="#publications">publications</a></li>
                     <li><a href="#cv">cv</a></li>
-                    <li><a href="#talks">talks</a></li>
+
                     <li><span class="settings-icon">⚙</span></li>
                 </ul>
             </div>
@@ -269,33 +419,17 @@
         <div class="container">
             <section class="profile-section">
                 <div class="profile-content">
-                    <h1>Aadim Nepal</h1>
+                    <h1>Aadim Neoal</h1>
                     
-                    <div class="update-box">
-                        <p><strong>Major Update:</strong> I will be joining [University Name] as an Assistant Professor in the Department of Computer Science in Fall 2025! I will be recruiting Ph.D. students for Fall 2026 and also looking for interns throughout 2025-2026.</p>
-                    </div>
-
                     <div class="bio">
-                        <p>I am a Postdoctoral Research Associate at [University Name] in the <a href="#">[Lab Name]</a> led by <a href="#">[Advisor Name]</a>. I received my Ph.D. in 2023 from [University Name], where I was supervised by <a href="#">[Supervisor Name]</a> and supported by an NSF GRFP.</p>
-                        
-                        <p>I aim to develop AI agents that can intelligently communicate and collaborate with people and each other. My work addresses three key problems:</p>
+                        <p>I am an undergraduate at <a href="#">NYU Abu Dhabi</a> working with <a href="#">Keith Ross</a> on LLM Interpretability and Reasoning. I like latent spaces and currently my project is about reasoning in latent space.</p>
                     </div>
 
                     <div class="research-focus">
-                        <ol class="research-list">
-                            <li>
-                                <div class="research-topic">Multi-agent communication and collaboration</div>
-                                <div class="research-description">A central focus of my work, which has led to work on multi-LLM multi-round discussions/debates, distilling multi-agent behavior, pragmatic/verbalized uncertainty, and persuasion.</div>
-                            </li>
-                            <li>
-                                <div class="research-topic">Grounded agents through inputs and actions</div>
-                                <div class="research-description">Another line of my work covers multimodal grounding and converting language to action through semantic parsing, text-to-code, and learning abstractions and skills.</div>
-                            </li>
-                            <li>
-                                <div class="research-topic">Handling uncertainty, ambiguity, and underspecification</div>
-                                <div class="research-description">Developing safe and robust agents means handling uncertainty, ambiguity, and underspecification. As we scale up tasks, underspecification and ambiguity will become increasingly relevant, especially when predicting actions/grounding to the world. My work covers calibration and uncertainty especially in connection with implicit phenomena such as vagueness, underspecification, and ambiguity.</div>
-                            </li>
-                        </ol>
+                        <h2>Research Interests</h2>
+                        <div class="research-description">
+                            My research focuses on LLM interpretability and reasoning, with particular interest in understanding how models process information in latent space. Currently working on projects that explore reasoning mechanisms within these high-dimensional representations.
+                        </div>
                     </div>
                 </div>
 
@@ -308,7 +442,115 @@
                     </div>
                 </div>
             </section>
+
+            <section class="news-section">
+                <h2>news</h2>
+                <div class="news-box">
+                    <div class="news-item">
+                        <div class="news-date">May 2025</div>
+                        <div class="news-title">
+                            <a href="#">Reinforcement Learning vs. Distillation: Understanding Accuracy and Capability in LLM Reasoning</a> preprint available on arXiv!
+                        </div>
+                        <div class="news-description">
+                            New paper with M Kim, A Shrestha, S Shrestha, and K Ross exploring the trade-offs between RL and distillation approaches in LLM reasoning capabilities.
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <div class="news-date">May 2025</div>
+                        <div class="news-title">
+                            <a href="#">Warm Up Before You Train: Unlocking General Reasoning in Resource-Constrained Settings</a> preprint available on arXiv!
+                        </div>
+                        <div class="news-description">
+                            Collaboration with S Shrestha, M Kim, A Shrestha, and K Ross on improving reasoning performance in resource-limited environments.
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <div class="news-date">2025</div>
+                        <div class="news-title">
+                            <a href="#">Multimodal Deep Learning for Stroke Prediction and Detection using Retinal Imaging and Clinical Data</a> accepted to EMBC 2025!
+                        </div>
+                        <div class="news-description">
+                            Work with S Shurrab, TJ John, NG Ghazi, B Piechowski-Jozwiak, et al. on applying multimodal deep learning techniques for medical diagnosis.
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="publications-section" id="publications">
+                <h2>Research Publications</h2>
+                <div class="publication-item">
+                    <span class="publication-number">1.</span>
+                    <span class="publication-authors">M Kim, A Shrestha, S Shrestha, <strong>A Neoal</strong>, K Ross.</span>
+                    <span class="publication-title">"Reinforcement Learning vs. Distillation: Understanding Accuracy and Capability in LLM Reasoning."</span>
+                    <span class="publication-venue">arXiv preprint arXiv:2505.14216</span>,
+                    <span class="publication-year">2025</span>.
+                </div>
+
+                <div class="publication-item">
+                    <span class="publication-number">2.</span>
+                    <span class="publication-authors">S Shrestha, M Kim, <strong>A Neoal</strong>, A Shrestha, K Ross.</span>
+                    <span class="publication-title">"Warm Up Before You Train: Unlocking General Reasoning in Resource-Constrained Settings."</span>
+                    <span class="publication-venue">arXiv preprint arXiv:2505.13718</span>,
+                    <span class="publication-year">2025</span>.
+                </div>
+
+                <div class="publication-item">
+                    <span class="publication-number">3.</span>
+                    <span class="publication-authors">S Shurrab, <strong>A Neoal</strong>, TJ John, NG Ghazi, B Piechowski-Jozwiak, et al.</span>
+                    <span class="publication-title">"Multimodal Deep Learning for Stroke Prediction and Detection using Retinal Imaging and Clinical Data."</span>
+                    <span class="publication-venue">EMBC</span>
+                    <span class="publication-year">2025</span>.
+                </div>
+            </section>
         </div>
     </main>
-</body>
-</html>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const sections = {
+                'about': document.querySelector('.profile-section'),
+                'publications': document.querySelector('.publications-section'),
+                'news': document.querySelector('.news-section')
+            };
+
+            // Initially show about section
+            sections['about'].style.display = 'grid';
+            sections['publications'].style.display = 'none';
+            sections['news'].style.display = 'block';
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    const targetSection = this.getAttribute('href').substring(1);
+                    
+                    // Hide all sections
+                    Object.values(sections).forEach(section => {
+                        if (section) section.style.display = 'none';
+                    });
+                    
+                    // Show target section
+                    if (sections[targetSection]) {
+                        if (targetSection === 'about') {
+                            sections[targetSection].style.display = 'grid';
+                            sections['news'].style.display = 'block';
+                        } else {
+                            sections[targetSection].style.display = 'block';
+                        }
+                    }
+                });
+            });
+
+            // Set about as active by default
+            document.querySelector('a[href="#about"]').classList.add('active');
+        });
+    </script>
