@@ -249,8 +249,8 @@
         }
 
         .news-item {
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
             border-bottom: 1px solid #333;
         }
 
@@ -260,39 +260,30 @@
         }
 
         .news-date {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #aaa;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .news-content {
+            display: inline;
+            margin-left: 1rem;
         }
 
         .news-title {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #e0e0e0;
-            margin-bottom: 0.3rem;
-            line-height: 1.3;
+            line-height: 1.4;
         }
 
         .news-title a {
-            color: #e0e0e0;
+            color: #64b5f6;
             text-decoration: none;
         }
 
         .news-title a:hover {
-            text-decoration: underline;
-        }
-
-        .news-description {
-            color: #ccc;
-            line-height: 1.4;
-            font-size: 0.85rem;
-        }
-
-        .news-description a {
-            color: #e0e0e0;
-            text-decoration: none;
-        }
-
-        .news-description a:hover {
             text-decoration: underline;
         }
 
@@ -409,22 +400,23 @@
                     <h1>Aadim Neoal</h1>
                     
                     <div class="bio">
-                        <p>I am an undergraduate at <a href="#">NYU Abu Dhabi</a> working with <a href="#">Keith Ross</a> on LLM Interpretability and Reasoning. I like latent spaces and currently my project is about reasoning in latent space.</p>
+                        <p>I am an undergraduate at <a href="#">NYU Abu Dhabi</a> working with <a href="#">Professor Keith Ross</a> at the NYUAD Deep Learning Lab on LLM interpretability and reasoning. My current research focuses on reasoning in continuous latent space, exploring how models can perform complex reasoning tasks within lower-dimensional representations.</p>
+                        
+                        <p>Previously, I conducted research on multimodal machine learning for stroke prediction with <a href="#">Professor Farah Shamout</a> at the NYUAD Clinical AI Lab. Prior to university, I worked on soil microbiome analysis and computational drug discovery, which sparked my continued interest in computational biology and genomics applications.</p>
+                        
+                        <p>My research philosophy centers on the principle that complex, high-dimensional phenomena can be understood through their lower-dimensional representations. This perspective guides my work across machine learning and computational biology, where I aim to uncover the fundamental abstractions that govern these systems.</p>
                     </div>
 
-                    <div class="research-focus">
-                        <h2>Research Interests</h2>
-                        <div class="research-description">
-                            My research focuses on LLM interpretability and reasoning, with particular interest in understanding how models process information in latent space. Currently working on projects that explore reasoning mechanisms within these high-dimensional representations.
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="profile-image">
+                    <!-- Replace the src below with your actual image path -->
+                    <!-- <img src="path/to/your/photo.jpg" alt="Aadim Neoal"> -->
                     <div class="image-placeholder">
                         <div>
                             <p>Add Your Photo Here</p>
-                            <p style="font-size: 0.9rem; margin-top: 10px;">Replace this with your professional headshot</p>
+                            <p style="font-size: 0.9rem; margin-top: 10px;">Replace the commented img tag above with your photo path</p>
                         </div>
                     </div>
                 </div>
@@ -435,31 +427,28 @@
                 <div class="news-box">
                     <div class="news-item">
                         <div class="news-date">May 2025</div>
-                        <div class="news-title">
-                            <a href="#">Reinforcement Learning vs. Distillation: Understanding Accuracy and Capability in LLM Reasoning</a> preprint available on arXiv!
-                        </div>
-                        <div class="news-description">
-                            New paper with M Kim, A Shrestha, S Shrestha, and K Ross exploring the trade-offs between RL and distillation approaches in LLM reasoning capabilities.
+                        <div class="news-content">
+                            <div class="news-title">
+                                <a href="#">Reinforcement Learning vs. Distillation: Understanding Accuracy and Capability in LLM Reasoning</a> preprint available on arXiv! Work with M Kim, A Shrestha, S Shrestha, and K Ross.
+                            </div>
                         </div>
                     </div>
 
                     <div class="news-item">
                         <div class="news-date">May 2025</div>
-                        <div class="news-title">
-                            <a href="#">Warm Up Before You Train: Unlocking General Reasoning in Resource-Constrained Settings</a> preprint available on arXiv!
-                        </div>
-                        <div class="news-description">
-                            Collaboration with S Shrestha, M Kim, A Shrestha, and K Ross on improving reasoning performance in resource-limited environments.
+                        <div class="news-content">
+                            <div class="news-title">
+                                <a href="#">Warm Up Before You Train: Unlocking General Reasoning in Resource-Constrained Settings</a> preprint available on arXiv! Work with S Shrestha, M Kim, A Shrestha, and K Ross.
+                            </div>
                         </div>
                     </div>
 
                     <div class="news-item">
                         <div class="news-date">2025</div>
-                        <div class="news-title">
-                            <a href="#">Multimodal Deep Learning for Stroke Prediction and Detection using Retinal Imaging and Clinical Data</a> accepted to EMBC 2025!
-                        </div>
-                        <div class="news-description">
-                            Work with S Shurrab, TJ John, NG Ghazi, B Piechowski-Jozwiak, et al. on applying multimodal deep learning techniques for medical diagnosis.
+                        <div class="news-content">
+                            <div class="news-title">
+                                <a href="#">Multimodal Deep Learning for Stroke Prediction and Detection using Retinal Imaging and Clinical Data</a> accepted to EMBC 2025! Work with S Shurrab, TJ John, NG Ghazi, B Piechowski-Jozwiak, et al.
+                            </div>
                         </div>
                     </div>
                 </div>
