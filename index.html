@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadim Nepal - Academic Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #64b5f6;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #64b5f6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 4rem 0;
+        }
+
+        .profile-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 4rem;
+        }
+
+        .profile-content h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #64b5f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .update-box {
+            background: linear-gradient(135deg, rgba(100, 181, 246, 0.1) 0%, rgba(100, 181, 246, 0.05) 100%);
+            border: 1px solid rgba(100, 181, 246, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .update-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #64b5f6, #42a5f5);
+        }
+
+        .update-box strong {
+            color: #64b5f6;
+            font-size: 1.1rem;
+        }
+
+        .bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .bio a {
+            color: #64b5f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .bio a:hover {
+            text-decoration: underline;
+        }
+
+        .research-focus {
+            margin-top: 2rem;
+        }
+
+        .research-focus h2 {
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .research-list {
+            list-style: none;
+            counter-reset: research-counter;
+        }
+
+        .research-list li {
+            counter-increment: research-counter;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .research-list li::before {
+            content: counter(research-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #64b5f6;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .research-topic {
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .research-description {
+            color: #b0b0b0;
+            line-height: 1.7;
+        }
+
+        /* Profile Image */
+        .profile-image {
+            position: relative;
+        }
+
+        .profile-image img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image img:hover {
+            transform: translateY(-10px);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            max-width: 300px;
+            height: 350px;
+            background: linear-gradient(135deg, rgba(100, 181, 246, 0.1) 0%, rgba(100, 181, 246, 0.05) 100%);
+            border: 2px dashed rgba(100, 181, 246, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #64b5f6;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .profile-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 2rem 0;
+            }
+        }
+
+        /* Settings Icon */
+        .settings-icon {
+            color: #64b5f6;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#about">about</a></li>
+                    <li><a href="#blog">blog</a></li>
+                    <li><a href="#publications">publications</a></li>
+                    <li><a href="#cv">cv</a></li>
+                    <li><a href="#talks">talks</a></li>
+                    <li><span class="settings-icon">⚙</span></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section class="profile-section">
+                <div class="profile-content">
+                    <h1>Aadim Nepal</h1>
+                    
+                    <div class="update-box">
+                        <p><strong>Major Update:</strong> I will be joining [University Name] as an Assistant Professor in the Department of Computer Science in Fall 2025! I will be recruiting Ph.D. students for Fall 2026 and also looking for interns throughout 2025-2026.</p>
+                    </div>
+
+                    <div class="bio">
+                        <p>I am a Postdoctoral Research Associate at [University Name] in the <a href="#">[Lab Name]</a> led by <a href="#">[Advisor Name]</a>. I received my Ph.D. in 2023 from [University Name], where I was supervised by <a href="#">[Supervisor Name]</a> and supported by an NSF GRFP.</p>
+                        
+                        <p>I aim to develop AI agents that can intelligently communicate and collaborate with people and each other. My work addresses three key problems:</p>
+                    </div>
+
+                    <div class="research-focus">
+                        <ol class="research-list">
+                            <li>
+                                <div class="research-topic">Multi-agent communication and collaboration</div>
+                                <div class="research-description">A central focus of my work, which has led to work on multi-LLM multi-round discussions/debates, distilling multi-agent behavior, pragmatic/verbalized uncertainty, and persuasion.</div>
+                            </li>
+                            <li>
+                                <div class="research-topic">Grounded agents through inputs and actions</div>
+                                <div class="research-description">Another line of my work covers multimodal grounding and converting language to action through semantic parsing, text-to-code, and learning abstractions and skills.</div>
+                            </li>
+                            <li>
+                                <div class="research-topic">Handling uncertainty, ambiguity, and underspecification</div>
+                                <div class="research-description">Developing safe and robust agents means handling uncertainty, ambiguity, and underspecification. As we scale up tasks, underspecification and ambiguity will become increasingly relevant, especially when predicting actions/grounding to the world. My work covers calibration and uncertainty especially in connection with implicit phenomena such as vagueness, underspecification, and ambiguity.</div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="profile-image">
+                    <div class="image-placeholder">
+                        <div>
+                            <p>Add Your Photo Here</p>
+                            <p style="font-size: 0.9rem; margin-top: 10px;">Replace this with your professional headshot</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
