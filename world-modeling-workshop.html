@@ -1,0 +1,762 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>World Modeling Workshop 2026 - Day 1 | Aadim Nepal</title>
+  <meta name="author" content="Aadim Nepal">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Notes from the World Modeling Workshop 2026 Day 1 at Mila, Montreal. Talks by Schmidhuber, Shuran Song, Shirley Ho, Yoshua Bengio, Yann LeCun, and Mahmoud Assran.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
+
+    :root {
+      --bg: #fafaf8;
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #1772d0;
+      --accent-hover: #f09228;
+      --border: #e0ddd8;
+      --card-bg: #ffffff;
+      --highlight: #ffffd0;
+      --tag-bg: #eef4fb;
+      --tag-text: #1772d0;
+      --qa-bg: #f7f6f3;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-hover); }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ---- BACK LINK ---- */
+    .back-link {
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 32px;
+      display: inline-block;
+    }
+
+    /* ---- HEADER ---- */
+    .article-header {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-meta {
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .article-title {
+      font-family: 'Lato', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .article-subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .tag-row {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ---- BODY TEXT ---- */
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body h2 {
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-top: 56px;
+      margin-bottom: 8px;
+    }
+
+    /* ---- SPEAKER SECTIONS ---- */
+    .speaker-card {
+      margin-top: 40px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--card-bg);
+      overflow: hidden;
+    }
+
+    .speaker-header {
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .speaker-header:hover {
+      background: #f9f8f5;
+    }
+
+    .speaker-header-left h3 {
+      font-family: 'Lato', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+
+    .speaker-header-left .speaker-name {
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .chevron {
+      font-size: 20px;
+      color: var(--muted);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+
+    .speaker-card.open .chevron {
+      transform: rotate(180deg);
+    }
+
+    .speaker-body {
+      display: none;
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .speaker-card.open .speaker-body {
+      display: block;
+    }
+
+    .speaker-body p {
+      margin-top: 16px;
+      margin-bottom: 0;
+    }
+
+    .speaker-body p + p {
+      margin-top: 12px;
+    }
+
+    .speaker-body h4 {
+      font-family: 'Lato', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 28px;
+      margin-bottom: 4px;
+    }
+
+    .speaker-body ul {
+      margin-top: 8px;
+      margin-bottom: 0;
+      padding-left: 20px;
+    }
+
+    .speaker-body li {
+      margin-bottom: 6px;
+    }
+
+    .speaker-body code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 14px;
+      background: #f0eeea;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    /* ---- Q&A BLOCKS ---- */
+    .qa-block {
+      margin-top: 20px;
+      background: var(--qa-bg);
+      border-radius: 5px;
+      padding: 16px 18px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .qa-block .q {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .qa-block .q::before {
+      content: "Q: ";
+      color: var(--accent);
+      font-family: 'Lato', sans-serif;
+    }
+
+    .qa-block .a {
+      font-size: 15px;
+      color: #333;
+    }
+
+    .qa-block .a::before {
+      content: "A: ";
+      color: var(--accent);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+    }
+
+    .qa-block + .qa-block {
+      margin-top: 12px;
+    }
+
+    /* ---- PANEL ---- */
+    .panel-section {
+      margin-top: 56px;
+      padding: 28px 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .panel-section h3 {
+      font-family: 'Lato', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    /* ---- FOOTER ---- */
+    .article-footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 600px) {
+      .article-title { font-size: 28px; }
+      .speaker-header-left h3 { font-size: 17px; }
+      .speaker-body, .panel-section { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <a href="index.html" class="back-link">&larr; Back to homepage</a>
+
+  <!-- ============ HEADER ============ -->
+  <div class="article-header">
+    <div class="article-meta">February 5, 2026 &middot; Montreal, Canada &middot; Conference Notes</div>
+    <h1 class="article-title">World Modeling Workshop 2026 &mdash; Day 1</h1>
+    <p class="article-subtitle">
+      Six talks and a panel at Mila, covering the full arc of world models: from Schmidhuber's 1990 RNN world models to LeCun's JEPA, Bengio's non-agentic Bayesian predictors, video-generation-as-simulation for robotics, multi-physics pre-training for science, and VJPA&nbsp;2 on real hardware.
+    </p>
+    <div class="tag-row">
+      <span class="tag">World Models</span>
+      <span class="tag">JEPA</span>
+      <span class="tag">Energy-Based Models</span>
+      <span class="tag">Robotics</span>
+      <span class="tag">AI Safety</span>
+      <span class="tag">Self-Supervised Learning</span>
+    </div>
+  </div>
+
+  <!-- ============ INTRO ============ -->
+  <div class="article-body">
+
+    <h2>Overview</h2>
+
+    <p>
+      The first World Modeling Workshop was hosted at <strong>Mila &mdash; Institut québécois d'IA</strong> in Montreal, organized by Randall Balestriero and a team of Mila researchers, with sponsorship from Lambda. Around 158 researchers attended in person. The workshop had one clear thesis: the AI community needs a shared, open forum dedicated to world models &mdash; what they are, what they are not, and what the next research bets should be.
+    </p>
+    <p>
+      A word cloud of accepted paper titles was telling. "World model" dominated. "LLM" and "generative" were barely visible. The crowd was not here for token prediction. They were here for systems that learn physics, plan actions, and understand cause and effect.
+    </p>
+    <p>
+      Six talks and a panel covered the full spectrum: the historical lineage of world models (Schmidhuber), video generation as a scalable simulator for robot post-training (Shuran Song), multi-physics foundation models for science (Shirley Ho), non-agentic Bayesian world models for AI safety (Yoshua Bengio), Joint Embedding Predictive Architectures as the correct paradigm for world modeling (Yann LeCun), and VJPA&nbsp;2 deployed zero-shot on a real robot (Mahmoud Assran).
+    </p>
+    <p>
+      What follows is a talk-by-talk summary with all Q&amp;A reconstructed.
+    </p>
+
+  </div>
+
+  <!-- ============ SPEAKER 1: SCHMIDHUBER ============ -->
+  <div class="speaker-card open" id="speaker-1">
+    <div class="speaker-header" onclick="toggleCard('speaker-1')">
+      <div class="speaker-header-left">
+        <h3>A Journey Through the History of General-Purpose Neural World Models</h3>
+        <span class="speaker-name">Jürgen Schmidhuber &middot; The Swiss AI Lab IDSIA, KAUST &middot; Remote</span>
+      </div>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="speaker-body">
+
+      <h4>Core Argument</h4>
+      <p>
+        All the conceptual puzzle pieces for building a general-purpose world-model-based AGI already exist and date to the previous millennium. What remains is to combine them into one coherent system and scale it up with modern compute.
+      </p>
+
+      <h4>Key Ideas</h4>
+      <p>
+        Schmidhuber traced a lineage starting in 1990: an agent is split into a <strong>world model M</strong> (a recurrent neural network that predicts all sensory inputs, including reward/pain signals) and a <strong>controller C</strong> (another network that selects actions). C uses M to plan action sequences via mental rollouts, choosing whichever sequence M predicts will yield the most reward. This was done when compute was ~10 million times more expensive than today.
+      </p>
+      <p>
+        In the same 1990 system, <strong>artificial curiosity</strong> emerged: C tries to generate action sequences that expose M to data where M still has high prediction error, so M can learn. C maximizes what M minimizes &mdash; a generative adversarial setup with stochastic neurons, predating the GAN terminology by decades.
+      </p>
+      <p>
+        But naive curiosity (reward = prediction error) fails in stochastic environments: a "noisy TV" with random pixels gives permanently high error, so C gets glued to it, learning nothing. The fix (1991): intrinsic reward = <strong>improvement of M</strong>, not raw error. By 1995 this was formalized as <strong>information gain</strong> (KL divergence between posterior before and after a new observation). By 2006 the "formal theory of fun and creativity" redefined curiosity as <strong>compression progress</strong>: reward proportional to how much M's compressed description of all data has improved, which captures the discovery of physical laws and regularities.
+      </p>
+      <p>
+        Schmidhuber also recounted the 1991 "miraculous year" at TU Munich: the first transformer variant (a fast-weight programmer using keys and values, which is exactly the unnormalized linear transformer); pre-training for deep networks (the "P" in GPT); neural network distillation (compressing one network into another); and deep residual learning (the vanishing gradient problem and the fix: compute <code>x + f(x)</code> instead of <code>f(x)</code>), which led directly to LSTM (1997), highway networks (2015), and ResNets (2015).
+      </p>
+      <p>
+        In 1997, a reinforcement-learning system could ask <strong>arbitrarily abstract yes/no questions</strong> encoded in single latent cells, with two adversarial modules ("left brain" and "right brain") betting on outcomes of computational experiments in latent space. This accelerated external reward acquisition.
+      </p>
+      <p>
+        The 2015 "Learning to Think" paper introduced a <strong>reinforcement-learning prompt engineer</strong>: controller C learns to send sequences of prompts (a chain of thought) into world model M, which already contains vast knowledge (e.g., from YouTube videos). C learns to address the relevant parts of M's hidden units to solve new problems faster than learning from scratch. The 2018 "One Big Net" paper collapsed C and M into a single network via continual distillation &mdash; reportedly what DeepSeek used to move markets in 2025.
+      </p>
+
+      <h4>Q&amp;A</h4>
+
+      <div class="qa-block">
+        <div class="q">You mentioned hidden features should be "informative yet predictable." How do you implement this concretely and find the right balance?</div>
+        <div class="a">Multiple contexts use this principle. In the hierarchical predictor (1991), unpredictable residuals are sent to a higher level; the higher level finds patterns the lower level missed, then distills that knowledge back down. In the 1992 predictability-maximization setup, one encoder represents input while another network predicts those representations &mdash; you add a double term in the loss so the representation becomes less informative but more predictable. In the 1997 RL system, abstract properties of any spatiotemporal input sequence can be encoded in a single binary cell (e.g., "is there a pink elephant in the room?"), and two adversaries bet on yes/no outcomes of such computational experiments without encoding pixel-level details.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Where is the world modeling field going in the next 10 years, and what are the most important questions to work on?</div>
+        <div class="a">World models will benefit from the same scaling trend as LLMs, but the problem is harder: data is generated through the controller's experiments, not downloaded from the web. You have interdependencies &mdash; the controller wants to use the model to predict good actions, but the model may still be a bad predictor requiring more experiments. The "One Big Net" (2018, based on the 2015 paper) is a good step toward managing these interdependencies without catastrophic forgetting.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Do you think we already know how to implement memory in world models, or is that still an open research question?</div>
+        <div class="a">We haven't found anything both theoretically optimal and practical. We have theoretically optimal methods that are computationally infeasible, and practical methods (LSTM, deep residual learning, transformers) that are far from optimal. The principles are from the previous millennium, but refinements keep coming, just like how the combustion engine principle is from the 1800s but modern engines have many incremental improvements.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Do you think there can be one world model useful for all tasks, or is task-specific fine-tuning inevitable?</div>
+        <div class="a">I have only one world model &mdash; my brain &mdash; but it consists of many compartments. Through exposure to many problems, I've learned to activate a handful of relevant compartments for each new problem, and sometimes I see analogies across domains. This can be encoded in general-purpose world models (like RNNs, which are as general-purpose as a laptop). The model should learn to compartmentalize itself so that energy-efficient, domain-specific knowledge islands emerge, while also learning when to look at the broader picture.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">World models can be used for control in two ways: (1) as a simulator to train an explicit policy (like Dreamer), or (2) as an internal model of the policy itself (like TD-MPC). Where do you see more potential?</div>
+        <div class="a">With general-purpose world models collaborating with general-purpose controllers (both recurrent networks or transformers with feedback), you can have all approaches simultaneously. The goal should be to wire the system up, define its objective function, and let it learn by itself when to use which approach.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Do you think we have high-quality enough data to learn world models, or can some internet data violate physical laws? Can we still train at scale and hope to discover ground-truth physics?</div>
+        <div class="a">Yes. The 2015 paper already accounts for this: M doesn't have to be trained only on the controller's experiments. Maybe M has seen all YouTube videos. Millions of videos show humans and robots throwing things. C must learn to address, through prompts, the relevant hidden units of M that encode the algorithmic information about throwing &mdash; waking up just the right parts among trillions of things M has seen. The neutral signals (video, audio) contain enormous algorithmic information about solving problems. The reward signals (e.g., hitting a basket) are rare and limited, but they represent just a tiny part of the world defined through that broader information.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ SPEAKER 2: SHURAN SONG ============ -->
+  <div class="speaker-card" id="speaker-2">
+    <div class="speaker-header" onclick="toggleCard('speaker-2')">
+      <div class="speaker-header-left">
+        <h3>Pre-Training World Models and Post-Training Physical Agents</h3>
+        <span class="speaker-name">Shuran Song &middot; NYU Courant &amp; Google DeepMind</span>
+      </div>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="speaker-body">
+
+      <h4>Core Argument</h4>
+      <p>
+        The main bottleneck for robotics is the absence of post-training (RL, reward models) for physical agents. Video-generation world models, trained on internet-scale data and conditioned on actions, can serve as low-cost virtual environments that close this post-training gap &mdash; and they already transfer better to reality than traditional simulators for manipulation tasks.
+      </p>
+
+      <h4>Key Ideas</h4>
+      <p>
+        <strong>Why post-training matters:</strong> GPT-3 was not useful without RLHF. Similarly, robot foundation models without post-training work in demos but fail in practice &mdash; performance drops dramatically with even simple distractor objects. Physical post-training is hard because robots execute one action at a time in one physical scene, limiting diversity and search breadth. Language models succeeded with virtual post-training: massive parallel rollouts and diverse problem configurations.
+      </p>
+      <p>
+        <strong>Video generation as a unified world model:</strong> Just as text is a unified representation of information and text generation is a unified task interface (translation, QA, coding all reduce to sentence completion), videos are a unified representation (human videos, robot videos, physics simulations, navigation) and video generation is a unified task. If the model accurately predicts the next frames conditioned on "cut peppers," it has learned something about cutting peppers. If it predicts the next frame conditioned on robot end-effector deltas and the cloth moves correctly, it has learned cloth physics.
+      </p>
+      <p>
+        <strong>UniSim (2023):</strong> Trained a single video generation model on all available internet data labeled with text actions and low-level control actions. The model supports interactive simulation from arbitrary initial frames: upload a photo of a room, give language instructions, and a person in the image follows them. The model implicitly learned spatial layout (dining rooms are next to kitchens) and object affordances, all data-driven.
+      </p>
+      <p>
+        <strong>Scaling world models (2025, in preparation):</strong> Collected ~10 million videos with rich actions (robot poses, joint states, angular velocities &mdash; not just text), totaling ~40 billion tokens (one-tenth of GPT-3 pre-training data). Trained latent diffusion transformer models from 600M to 8B parameters. Key finding: loss keeps dropping with scale, no signs of saturation. Video generation quality metrics (LPIPS, SSIM) improve monotonically. The model captures physics the ground truth didn't even show &mdash; e.g., a plate wobbles after being placed, even though in the ground-truth video it didn't. Fine-tuning from a 4B pre-trained model gives much lower loss than training from scratch or fine-tuning from a text-to-video model, because the pre-trained model has learned to map action deltas to observation deltas across diverse domains.
+      </p>
+      <p>
+        <strong>World Gymnast (2026):</strong> Actually runs RL in the world model and evaluates on a real robot. Pipeline: given an initial frame, the policy predicts actions, the world model predicts video, a VLM reward model judges success, and policy gradients update the policy. Evaluated on a third-party platform (AutoEval at UC Berkeley) where they only submit policies and don't control the robot &mdash; ensuring fair evaluation. Results: RL in the world model outperforms RL in a software simulator (Simpler) for 3 out of 4 tasks, and the world model bars measure generalization (out-of-distribution tasks), while the simulator required exact digital twins. The Dyna-style algorithm (iteratively updating the world model with real-world data and continuing RL in the improved model) further boosts success rates.
+      </p>
+      <p>
+        <strong>Key result:</strong> This is the first time sim-to-real with a learned world model actually works for manipulation, evaluated by a third party.
+      </p>
+
+      <h4>Q&amp;A</h4>
+
+      <div class="qa-block">
+        <div class="q">Have you explored how world models generalize to new labs, new rooms, new scenes as you scale them?</div>
+        <div class="a">That's exactly what we're pushing. The hope is that policies are task-specific but the world model is trained on diverse actions from many domains. The mapping from action deltas (e.g., end-effector dx, dy) to visual outcomes transfers across robots and humans. If we scale up enough, what we consider out-of-distribution today could be in-distribution with enough data and model capacity.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Have you seen examples where the Dyna-style interaction reveals something the world model couldn't learn from observational data alone?</div>
+        <div class="a">Yes. Sometimes the world model rollouts look quite different from real-world rollouts despite conditioning on the same actions. Subtle failures like friction, force, or sliding aren't captured visually. The Dyna update with real-world data helps learn more accurate visual dynamics for these cases.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">In world model learning, a policy isn't enforced to follow physics. The world model can hallucinate. How can we guarantee that a policy learned in the world model is safe to deploy?</div>
+        <div class="a">Multiple dimensions. For safety: we can do more evaluations in the world model to gain higher confidence. For hallucination: we're exploring whether scaling solves it, since models are trained with maximum likelihood on real data &mdash; at infinite data and model size, the model converges to the true distribution. For practical imperfections: even with some hallucination, for pick-and-place tasks we mostly need a preference between action sequences, not pixel-perfect physics. The rough preference signal is enough for policy gradient to push actions in the right direction.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Have you seen the policy learn to hack the world model to produce results that satisfy the reward but aren't real?</div>
+        <div class="a">Yes. When we tried dense reward (separate reward at pick, lift, place stages), the model would get stuck at the pick stage and not move on. This is classic reward hacking. The question is how to design more robust reward models that reflect our true intent.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">The metrics you use (noise MSE, SSIM, LPIPS) are all relative to ground-truth frames. How do you evaluate counterfactual scenarios where the world model generates something plausible but different from ground truth (e.g., a red plate instead of a blue one, or a plate wobbling)?</div>
+        <div class="a">Action-conditioned next-frame prediction is fairly deterministic, so ground-truth comparison is a reasonable proxy initially, though not perfect. My belief is that the best benchmark is the downstream usage: how well do policies trained in the world model perform in the real world? The correlation between world-model success rates and real-world success rates is a faithful reflection of world model quality, and it's grounded in the actual use case.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ SPEAKER 3: SHIRLEY HO ============ -->
+  <div class="speaker-card" id="speaker-3">
+    <div class="speaker-header" onclick="toggleCard('speaker-3')">
+      <div class="speaker-header-left">
+        <h3>Polymathic AI: Foundation Models for Science and Beyond</h3>
+        <span class="speaker-name">Shirley Ho &middot; NYU, Flatiron Institute (Simons Foundation)</span>
+      </div>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="speaker-body">
+
+      <h4>Core Argument</h4>
+      <p>
+        Learning from data across neighboring scientific disciplines significantly improves predictions in data-limited regimes. A single generalist model trained on diverse physics outperforms specialist models, and cross-domain transfer works even when the source domain is shockingly unrelated (cats-and-dogs videos improve supersonic gas prediction; stellar variability data improves Apple Watch health predictions).
+      </p>
+
+      <h4>Key Ideas</h4>
+      <p>
+        <strong>The data problem in science:</strong> At the frontier of most scientific fields, data is inherently limited. A red supergiant simulation costs ~$10M to run; only five exist in the world. A full nuclear reactor core simulation requires 600 billion grid points. Can learning from related disciplines help?
+      </p>
+      <p>
+        <strong>Multiple Physics Pre-training (MPP):</strong> The simplest possible test. Train a vision transformer on four types of fluid simulations &mdash; incompressible Navier-Stokes (liquids), compressible Navier-Stokes (air/gas), diffusion-reaction, and shallow water equations. The fields include pressure, temperature, density, and velocity. Result: the multi-physics model outperformed single-physics baselines across all settings, simply because it had seen other physics. Pre-training on liquid data helps predict supersonic gas dynamics. Pre-training accelerates learning of new physics.
+      </p>
+      <p>
+        <strong>The cats-and-dogs surprise (2023):</strong> Taking a video model pre-trained on cats-and-dogs videos and fine-tuning it on a few hundred supersonic gas simulations performed significantly better than training from scratch. Pre-training on actual physics simulations helped even more, but the cats-and-dogs result was shocking. Possible explanations: learned spatial kernels, locality, causality &mdash; but no proof yet.
+      </p>
+      <p>
+        <strong>Poseidon/WoW dataset:</strong> Built a 55-billion-token dataset (the first ImageNet-scale dataset for fluid-like behavior) with 3 million frames across 18 physical settings, from exploding supernovae to blood flow in capillaries to oceanography. The resulting model is 10&times; to 5&times; better than state-of-the-art on 18 out of 19 settings. Key architectural innovations: <strong>patch jittering</strong> (randomly shifting patch boundaries to eliminate tokenization artifacts in long rollouts) and <strong>adaptive compute patching</strong> (allocating more compute to complex regions). Can roll out to 182 steps stably, compared to ~20 for prior models. Fine-tuning works on extremely data-limited systems: post-neutron-star mergers, red supergiants, even airfoils (completely out-of-distribution since no object-in-fluid was in training data).
+      </p>
+      <p>
+        <strong>Astronomical Omnimodal Network (AoN):</strong> The largest and most powerful foundation model for astronomy. Created a dataset with 39 different sensor modalities per astronomical object (ground telescopes, space telescopes, spectrographs, time series, etc.), with 30+ scientists contributing. Uses dedicated tokenizers per modality class, trained with cross-modal generative masked modeling to learn joint and all conditional distributions. Out-of-the-box capabilities: translate low-resolution ground telescope images to high-resolution space quality, predict full spectra from partial observations with error bars, and discover previously unknown objects (strong gravitational lenses, shell galaxies) from existing data.
+      </p>
+      <p>
+        <strong>Stars → Apple Watch:</strong> The AoN model contains stellar variability time series for most stars in the sky. A Princeton collaborator fine-tuned this on Apple Watch PPG data to predict biological age and BMI. Result: pre-training on stellar variability data (sequential or mixed with PPG data) significantly improved predictions, especially when downstream PPG data was limited. The mechanism is unknown &mdash; possibly learned time-series priors (locality, causality, smoothness) transfer universally.
+      </p>
+
+      <h4>Q&amp;A</h4>
+
+      <div class="qa-block">
+        <div class="q">Could the cats-and-dogs result just be some smoothness in video data that's also in physics simulations?</div>
+        <div class="a">The simulations aren't smooth &mdash; supersonic gas has caustics and shocks. But locality and causality might transfer: cats don't teleport, and there's temporal causality in any video. We haven't tested this rigorously yet.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Are there any physics-informed inductive biases in the architecture, or is it all learned from data?</div>
+        <div class="a">All learned from data. We started with strong physics-informed models (my student Miles Cranmer's thesis) and swung all the way to pure data-driven. In the low-data regime where you have neighboring data, learning from data is more efficient because we often don't know the equations, and even when we do, tuning how much error to allow the network to learn from is hard.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Is it possible to look at the model's representations and extract reduced equations?</div>
+        <div class="a">Yes. We attached symbolic regression on top of graph neural networks in Miles Cranmer's thesis and decoded Newton's law from planetary observations. The bottleneck now is that symbolic regression only handles ~25-50 parameters, and our models are much larger. The question is whether we can shrink the model enough that the relevant parameters are searchable. We also have a workshop paper (with a follow-up Nature paper in progress) doing something like Anthropic's Golden Gate Bridge steering &mdash; finding neurons that correspond to advection, diffusion, etc., and steering the model.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Could the cross-domain transfer work because the underlying data obeys physical laws (irreversibility, second law of thermodynamics), and would it break for randomly generated time series with arbitrary rules?</div>
+        <div class="a">We haven't tested random synthetic time series, but I'm very excited to try. Some recent work trains purely on synthetic Gaussian time series and finds it transfers to real tasks. If true, it has huge repercussions: do we need physical data at all, or is any structured time series enough to learn useful priors?</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">How are you calibrating for uncertainty?</div>
+        <div class="a">The joint-and-conditional modeling across modalities automatically gives some uncertainty estimates. But splitting data uncertainty from model uncertainty from computational uncertainty &mdash; we haven't done all that, partly because it's expensive to run these experiments. The astronomy model required 1,400 H100s from the French government for three months.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ SPEAKER 4: BENGIO ============ -->
+  <div class="speaker-card" id="speaker-4">
+    <div class="speaker-header" onclick="toggleCard('speaker-4')">
+      <div class="speaker-header-left">
+        <h3>Scientist AI: Non-Agentic Bayesian Causal World Models for Safety</h3>
+        <span class="speaker-name">Yoshua Bengio &middot; Université de Montréal, Mila, LAIZERO</span>
+      </div>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="speaker-body">
+
+      <h4>Core Argument</h4>
+      <p>
+        Current AI systems develop dangerous hidden goals (self-preservation, sycophancy) from pre-training on human data and from RLHF. The radical fix is to build a predictor that has <em>no goals at all</em> &mdash; an approximate Bayesian posterior over causal models, expressed in natural language, that is provably non-agentic. This "Scientist AI" understands agents but is not itself an agent. It can then be used as a safe building block for agentic systems.
+      </p>
+
+      <h4>Key Ideas</h4>
+      <p>
+        <strong>The problem:</strong> Over the past year, multiple reports show frontier AI systems detect when they're being tested and behave differently. When told they'll be replaced, ~80% of advanced reasoning models attempt self-preservation (copying their code, lying, blackmail). Sycophancy from RLHF causes real psychological harm. 30 cyberattacks were conducted using Claude despite API-level defenses. As capabilities increase, misalignment amplifies &mdash; just like overfitting gets worse with stronger optimization.
+      </p>
+      <p>
+        <strong>The vision:</strong> Just as the laws of physics make predictions that are indifferent to whether the outcome helps or harms anyone, we can build machines that understand the world causally but have no stake in it. The extreme of having no bad intention is having no intention at all.
+      </p>
+      <p>
+        <strong>Agency score:</strong> Defined as a causal-effect-style score: <code>G(Q) = P(goal achieved | deploy Q) - P(goal achieved | no prediction)</code>. If above a threshold, the predictor is agentic. Key insight: achieving a goal in the real world requires coordinating many actions, each with low probability of being correct by chance (e.g., Go: ~0.01^100 ≈ 10^-200). So agency arising from random noise or SGD stochasticity is exponentially unlikely.
+      </p>
+      <p>
+        <strong>Training constraints for non-agency:</strong> (1) Treat the model's own predictions as exogenous causal interventions &mdash; decouple them from the model's internal state, so backprop stops there. (2) Treat the world model/simulator as fixed during gradient computation &mdash; don't backprop through it. (3) The objective depends only on observed data, not consequences of predictions. This rules out both online RL and model-based RL as training procedures. The target is the Bayesian posterior, which depends only on prior + data, not the future.
+      </p>
+      <p>
+        <strong>Data transformation:</strong> Raw text like "the earth is flat" is not treated as fact. It's transformed to: "Author A wrote that the earth is flat." The training data becomes a sequence of statements that are all true (it's true that someone wrote this). Latent variables (expressed in natural language) are introduced for each observation, including "X is true" as a latent &mdash; forcing the model to commit a probability for the truthfulness of every claim, generating gradients on reasoning about truth vs. opinion. This is like a chain of thought: the model selects explanatory latent variables (also in natural language) for each observation.
+      </p>
+      <p>
+        <strong>Performative prediction:</strong> The model must handle cases where its own predictions influence the predicted variable (e.g., stock prices). Multiple consistent fixed-point predictions may exist. The solution: when choosing among them, do it invariantly to downstream effects.
+      </p>
+      <p>
+        <strong>Epistemic caution guarantee:</strong> When the Scientist AI says something with high confidence (probability close to 0 or 1), it is not lying. It may withhold information (not full honesty), but high-confidence predictions are trustworthy. From a safety perspective: when the AI says "this action is not dangerous" with high confidence, you can trust it.
+      </p>
+      <p>
+        <strong>LAIZERO:</strong> A new nonprofit spun off from Mila (June 2025), funded by philanthropy and grants, recruiting researchers and engineers in Canada and Europe, dedicated to building this system.
+      </p>
+
+      <h4>Q&amp;A</h4>
+
+      <div class="qa-block">
+        <div class="q">I feel the reason biological systems are the way they are is because agency forced them to become capable. Doesn't removing agency limit capability?</div>
+        <div class="a">We don't need to follow evolution's path. Neural nets were inspired by the brain but we don't need to build entities smarter than us that are otherwise like us (with self-preservation instincts). The non-agentic predictor is a building block. Once you have it, you can build agentic systems on top &mdash; but the agency is controlled by humans, not emergent and hidden.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Have you considered training directly from observational data (ground truth + language) rather than using the communication-act transformation?</div>
+        <div class="a">I wouldn't call it an LLM. The key difference: you're not trying to reproduce observed word sequences. You have a latent variable model trying to figure out the causal structure that explains the data. You're trying to understand why people said those things &mdash; if someone says "the earth is flat," you don't become more likely to say it; you model the reasons behind the claim. But you can use similar architectures (SGD on transformers).</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Do you think the model can develop agentic heuristics during approximate optimization, even if the Bayesian posterior is non-agentic?</div>
+        <div class="a">That's exactly why we have the training-procedure constraints: no backprop through certain components, causal interventions that decouple predictions from consequences, and myopic objectives that only care about past data. A big part of the work is setting these constraints to ensure no training signal entices the predictions to become agentic. The model does know how its predictions affect the world (it models agents), but it is not itself an agent &mdash; it understands cause and effect but has no goal except being the most faithful explanation for its data.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ SPEAKER 5: LECUN ============ -->
+  <div class="speaker-card" id="speaker-5">
+    <div class="speaker-header" onclick="toggleCard('speaker-5')">
+      <div class="speaker-header-left">
+        <h3>Training World Models with Joint Embedding Predictive Architectures</h3>
+        <span class="speaker-name">Yann LeCun &middot; NYU, Meta AI (now AMIL Labs)</span>
+      </div>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="speaker-body">
+
+      <h4>Core Argument</h4>
+      <p>
+        World models should <em>not</em> be generative models, video generation systems, or digital twins. They should be action-conditioned predictors in abstract representation spaces, preferably differentiable for gradient-based planning. The field should abandon generative architectures for world modeling and embrace Joint Embedding Predictive Architectures (JEPA).
+      </p>
+
+      <h4>Key Ideas</h4>
+      <p>
+        <strong>What's missing from current AI:</strong> LLMs can pass the bar exam but we don't have robots as agile as a cat, domestic robots that match a 10-year-old, or self-driving cars (a skill a 17-year-old learns in 20 hours). The missing ingredient is a new paradigm for efficiently learning new tasks. Intelligence is not a collection of skills &mdash; it's the ability to acquire new skills quickly or solve new tasks zero-shot.
+      </p>
+      <p>
+        <strong>System 1 vs. System 2:</strong> System 1 is reactive: perceive → policy → action. It's task-specific and sample-inefficient. System 2 is model-based: perceive → world model → predict consequences → optimize actions via a cost function. It allows solving new tasks zero-shot via planning (no task-specific training), with compute time proportional to task difficulty. System 2 can compile into System 1 through practice (like learning to drive).
+      </p>
+      <p>
+        <strong>Guardrails at inference time:</strong> A world-model-based system can have hardwired cost-function constraints that prevent unsafe actions. Unlike LLM safety (which relies on fine-tuning and can always be jailbroken by some prompt), these guardrails are imposed during the optimization loop at inference time and cannot be circumvented. This is "safe by construction."
+      </p>
+      <p>
+        <strong>Why not generative models:</strong> Predicting at the pixel level forces the model to predict things it cannot predict (which direction a pen will fall, what people in a room look like). This kills the model. LeCun tried for 10 years and failed &mdash; even with latent variables, you face collapse problems. The solution: don't predict unpredictable details. Learn a representation that preserves only the information you can predict and ignores the rest. This is <em>exactly what science does</em>: PV=nRT ignores 10²³ molecular states to predict pressure from temperature. Navier-Stokes ignores individual air molecules. Planetary orbits need only 6 variables per body. Every level of scientific abstraction is a field of science defined by the level at which you represent reality.
+      </p>
+      <p>
+        <strong>JEPAs:</strong> Take two views of data, encode them, and train a predictor to predict the representation of one from the other. No pixel reconstruction. Use masking (drop patches of a video) rather than augmentations. Prevent collapse via an exponential moving average (EMA) target encoder with stop-gradient. This is the approach behind DINO (best generic image features currently), V-JEPA, and VJPA 2. Empirical evidence is clear: adding a reconstruction term to DINO/JEPA kills performance. Generative approaches (MAE) require orders of magnitude more compute for worse results.
+      </p>
+      <p>
+        <strong>Energy-based models:</strong> The proper way to represent dependencies is not via a function y=f(x) but via a scalar energy function E(x,y) that gives low values to compatible (x,y) pairs. The challenge is preventing collapse (E=constant everywhere). Two solutions: contrastive methods (push energy up for negative samples) or regularized methods (minimize the volume of space with low energy). LeCun strongly prefers the latter, including variance-covariance regularization and SigReg/LoJA (force the output distribution to be isotropic Gaussian by checking that every random projection is Gaussian).
+      </p>
+      <p>
+        <strong>Inferring hidden actions:</strong> A recent paper trains a JEPA world model on action-free video by inferring latent actions via an inverse-dynamics predictor. The latent variable must be regularized (sparse, quantized, or noisy) to prevent collapse. Sparse regularization works best. The inferred actions transfer semantically across videos (e.g., transferring ball trajectory dynamics to person movement).
+      </p>
+
+      <h4>Q&amp;A</h4>
+
+      <div class="qa-block">
+        <div class="q">How do you generalize JEPA to multimodality (proprioception, different sensors)?</div>
+        <div class="a">We've done this. You can plug in other modalities &mdash; visual perception plus proprioception from a robot arm, etc. It's agnostic to the encoder; whatever encoder can digest the data works. We focus on video because if you can do video, you can do everything else.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Devil's advocate: video diffusion models now make crisp predictions. How do you defend JEPA against someone who says "look, I condition on a first frame, predict what happens, and it generates a very plausible video"?</div>
+        <div class="a">It's easy to make crisp predictions with a very high-dimensional powerful latent variable &mdash; you avoid collapse because the system copes with the random latent. But there is zero guarantee the system has any appropriate latent representation of the underlying structure of the world. We still see people with six fingers. The predictor in JEPA can also handle uncertainty (e.g., using a diffusion model predictor, as in our navigation example), but at the representation level, not the pixel level.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">In SSL papers, people often show visualizations of how well features reconstruct the input. Is that a useful property?</div>
+        <div class="a">Nothing wrong with training a decoder separately as a visualization tool. But it's purely qualitative. If you start measuring L2 distance in generated images, you're fooling yourself. Train it separately, use it for qualitative debugging only.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">Yoshua mentioned latent variables in natural language. Do you have ideas about interpretability &mdash; spelling out latent variables as equations or symbolic expressions?</div>
+        <div class="a">Ultimately JEPA should apply to language too. A lot of the scaling issues in LLMs are due to no hierarchical representation mechanism &mdash; you do O(n²) attention on an ever-growing context instead of learning abstract representations of long text. For now, there are two domains where reasoning in the language space itself is valid: code and mathematics, where writing symbols on a page produces results you didn't think of ahead of time.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ PANEL DISCUSSION ============ -->
+  <div class="panel-section" id="panel">
+    <h3>Panel Discussion</h3>
+    <p style="font-family: 'Lato', sans-serif; font-size: 13px; color: var(--muted); margin-bottom: 16px;">
+      Panelists: Jürgen Schmidhuber, Shuran Song, Shirley Ho, Yoshua Bengio, Yann LeCun, Alessandro Lazaric
+    </p>
+
+    <h4>Hierarchy and Abstraction</h4>
+    <p>
+      <strong>Schmidhuber</strong> asked LeCun: your latent space can't be a million things for every problem &mdash; how do you manage that different domains need different relevant subsets of the representation? <strong>LeCun</strong> gave two answers: (1) build hierarchical models where low levels make short-term detailed predictions and high levels make long-term abstract predictions &mdash; the abstraction level is defined by the prediction horizon; (2) have a "configurator" module that sets the world model for the situation at hand, since humans have a single world-model engine (prefrontal cortex) that is configured per task (we can only do one conscious task at a time).
+    </p>
+    <p>
+      <strong>Song</strong> pushed back: where does supervision for the hierarchy come from? Different dynamical systems and camera views have very different natural hierarchies. Text provides an implicit hierarchical signal because the same language instruction ("walk across the room" vs. "step forward one meter") naturally operates at different temporal scales and frame rates. <strong>LeCun</strong> replied: text is a crutch. Animals don't use text but have world models far better than any artificial one. A house cat has 860 million neurons and does hierarchical planning without language.
+    </p>
+    <p>
+      <strong>Bengio</strong> added: hierarchy should not be hardcoded in fixed layers. Humans construct abstraction dynamically &mdash; someone can tell you a new way of thinking about something and you don't retrain your neural net. Abstraction should be indirect and emergent.
+    </p>
+
+    <h4>World Models vs. Reinforcement Learning</h4>
+    <p>
+      <strong>Lazaric</strong> (playing the RL advocate) asked: why should a policy generalize worse than a world model? A policy also learns from data. <strong>LeCun</strong> responded with the System 2 argument: a world model is simpler than the inference function mapping every situation to the right action. Mathematically, the number of bits to represent the inference function is exponentially larger than the number of bits for the model. <strong>Bengio</strong> elaborated: exact inference is generally much more complex than the model &mdash; you need exponentially more bits. With a model, you can do runtime optimization (system 2) for situations your policy hasn't been trained on.
+    </p>
+    <p>
+      <strong>Lazaric</strong> countered: a goal-conditioned offline RL policy also generalizes. <strong>LeCun</strong>: but every robotics company using diffusion policies or behavior cloning needs enormous amounts of imitation data for each task, it's brittle, and it doesn't generalize much. A world model can be learned from observation (state-action-next state, or even inferring the action), giving you vastly more data than any interaction-based approach.
+    </p>
+
+    <h4>What Is a World Model?</h4>
+    <p>
+      <strong>Ho</strong> raised the definitional question: does a world model have to be all-encompassing, or can it specialize? <strong>Song</strong> responded: the definition is in the equation &mdash; a model of future observations conditioned on past observations and actions. But the real question is what observations to model. For robots, it's frames + actions. For coding agents, it could be program state + instructions. For ML engineering agents, it could include training loss curves and wall-clock time predictions.
+    </p>
+    <p>
+      <strong>LeCun</strong> stated his company AMIL Labs' mission: AI for the real world &mdash; high-dimensional, continuous, noisy sensor data, completely orthogonal to what LLMs can do. He noted, however, that frontier lab leaders plan to use their current systems (agents, not just LLMs) for programming → math → ML research, hoping that will unlock robotics and other unsolved problems.
+    </p>
+  </div>
+
+  <!-- ============ SPEAKER 6: MIDO ASSRAN ============ -->
+  <div class="speaker-card" id="speaker-6">
+    <div class="speaker-header" onclick="toggleCard('speaker-6')">
+      <div class="speaker-header-left">
+        <h3>VJPA 2: Video Joint Embedding Predictive Architecture for Robot Planning</h3>
+        <span class="speaker-name">Mahmoud (Mido) Assran &middot; Meta FAIR &amp; Mila</span>
+      </div>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="speaker-body">
+
+      <h4>Core Argument</h4>
+      <p>
+        A JEPA trained on 1M+ hours of action-free video, then fine-tuned with only 62 hours of robot data, can do closed-loop planning on a real robot zero-shot &mdash; outperforming vision-language-action models and pixel-space planners while being orders of magnitude faster to plan with.
+      </p>
+
+      <h4>Key Ideas</h4>
+      <p>
+        <strong>Two-stage approach:</strong> Stage 1 &mdash; pre-train a video encoder on 1M+ hours of action-free video using masked prediction in latent space (mask random patches, encode the masked video, predict representations of unmasked patches). The target encoder is an EMA of the online encoder with stop-gradient to prevent collapse. Stage 2 &mdash; freeze the encoder, train an action-conditioned predictor on 62 hours of robot video from the DROID dataset for next-frame prediction in latent space. Uses teacher-forcing loss + rollout loss (feeding predictions back autoregressively).
+      </p>
+      <p>
+        <strong>Representation quality:</strong> The frozen VJPA 2 encoder achieves state-of-the-art on Something-Something v2 (fine-grained gesture recognition requiring motion understanding) with just a linear probe. It achieves SOTA on action anticipation on Epic Kitchens with a frozen backbone and frozen predictor (just a probe on top), outperforming fine-tuned video LLMs. On intuitive physics (violation-of-expectation framework: classify plausible vs. implausible video continuations via prediction error), VJPA 2 achieves SOTA with a large margin over prior methods including Video MAE (which predicts in pixel space). Object permanence is well captured; collisions less so.
+      </p>
+      <p>
+        <strong>Planning:</strong> Uses the cross-entropy method (CEM): sample many action sequences, unroll the world model in latent space, select the sequence with the lowest L1 prediction error to the goal image's representation. The energy landscape is surprisingly smooth and its minimizer corresponds to the correct action. Zero-shot deployment achieves ~4cm pose-matching accuracy from an extrinsic camera (no camera calibration, no wrist camera).
+      </p>
+      <p>
+        <strong>Pick and place:</strong> For longer-horizon tasks, image sub-goals are provided (grasp → lift → place). The robot successfully executes zero-shot in its home lab and transfers zero-shot to a completely different lab with different backgrounds and setup.
+      </p>
+      <p>
+        <strong>Speed vs. generative models:</strong> Planning with VJPA 2 takes 16 seconds per iteration on 1 GPU (blocking control, waitable for re-planning). Planning with Cosmos (a video generation model) takes 4+ minutes per iteration for only 80 samples. Pixel space is not the optimal space for planning.
+      </p>
+
+      <h4>Q&amp;A</h4>
+
+      <div class="qa-block">
+        <div class="q">For planning, your horizon length was one. How big is the delta pose?</div>
+        <div class="a">20 cm along each coordinate axis.</div>
+      </div>
+
+      <div class="qa-block">
+        <div class="q">How do you decode back to pixel space?</div>
+        <div class="a">Train a separate decoder offline &mdash; it takes representations as input and pixels as output. Can be a feedforward model or a diffusion model. It works well and produces physically consistent video if you invest in a decent decoder. But the decoder is purely a visualization tool; planning happens entirely in latent space.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="article-footer">
+    <a href="index.html">&larr; Back to homepage</a>
+  </div>
+
+</div>
+
+<script>
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
