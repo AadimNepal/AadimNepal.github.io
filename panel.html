@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Discussion – World Modeling Workshop</title>
+<style>
+  body { font-family: Georgia, serif; max-width: 860px; margin: 40px auto; padding: 0 20px; background: #fafafa; color: #222; line-height: 1.7; }
+  h1 { font-size: 1.6em; border-bottom: 2px solid #333; padding-bottom: 10px; }
+  h2 { font-size: 1.1em; color: #555; margin-bottom: 30px; }
+  .speaker { font-weight: bold; margin-top: 18px; }
+  .randall { color: #1a5276; }
+  .yann { color: #7d3c98; }
+  .yoshua { color: #1e8449; }
+  .shirley { color: #b9770e; }
+  .sherry { color: #c0392b; }
+  .alessandro { color: #2e86c1; }
+  .audience { color: #666; font-style: italic; }
+  .line { margin: 6px 0 6px 20px; }
+  .note { background: #fff3cd; padding: 12px 16px; border-left: 4px solid #ffc107; margin: 20px 0; font-size: 0.9em; }
+</style>
+</head>
+<body>
+
+<h1>Panel Discussion – World Modeling Workshop</h1>
+<h2>Panelists: Yann LeCun, Yoshua Bengio, Shirley Ho, Sherry Young (Shuran Song), Alessandro Lazaric<br>Moderator: Randall Balestriero</h2>
+
+<div class="note">
+  <strong>Note:</strong> This is a reconstruction of the panel discussion from the workshop transcript. The transcript was generated from audio and may contain minor transcription errors. Speaker attributions are inferred from context, voice cues, and topical continuity in the original transcript. Some brief interjections or crosstalk may be attributed approximately.
+</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">All right. So, uh we will now start the uh panel discussion. So, we have roughly uh one hour. So, you already heard about uh almost everyone except Alessandro. So, Alessandro Lazaric is a in expert in law enforcement learning and you will hear from him on Friday. Uh definitely come to his talk. he's been able to do some very interesting work at the intersection of enforcement learning and war modeling JPAR. Uh so this will be also very uh interesting point during this discussion. So the goal is really to have a discussion uh between you all and also everyone should feel free to uh walk to the microphone. We have only one in the room uh now right here uh to ask questions or ask for clarifications uh when needed. But maybe uh to get started uh just wondering if any of you had particular questions uh about what you've heard today uh in term of should you do input space reconstruction lat on space uh prediction is there any modality where you think reconstruction can be okay or not. Uh this seems to be a very big debate. Uh and so this will be uh interesting to hear what everyone thinks about. I think Yan, we have a good idea about your opinion, but feel free to reiterate uh again if you want.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">I have a question for Yan. Can I do that?</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">Go for it.</div>
+
+<p class="speaker yann">Yann (to Jürgen, but context suggests self-directed/rhetorical — actually this appears to be Jürgen or another panelist addressing Yann):</p>
+
+<div class="note">Note: The transcript here is slightly ambiguous. It appears one panelist (likely Yoshua or Shirley) is asking Yann a question. Based on context, this exchange seems to be Shirley or Yoshua directing a question to Yann.</div>
+
+<p class="speaker yoshua">Yoshua (or another panelist):</p>
+<div class="line">Just following up on my earlier question. All right. So, um you mentioned that uh we humans use an abstract space where we do reason. Totally with you on this. But um that abstract space is different for every problem.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">And of course there's overlaps of pieces of it across problems.</div>
+
+<p class="speaker yoshua">Questioner (continuing):</p>
+<div class="line">Now if you have like the normal neural net architecture of the kind I imagine you you guys are building uh your latent space you know is not a million things it's a thousand things or whatever 10,000 maybe but right um so the parts of your latent space that's going to be relevant for any particular domain might be very different. So how do you manage that that issue?</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">uh two answers to this. So the first the first thing is the real model you want to build is a hierarchical model where the low-level uh the low levels of the model make uh predictions that have a lot of details in them but only make short-term predictions and then the higher levels the what defines a level of abstraction is the range at which you make the prediction. So the the longer range the prediction the fewer details the system can keep because you cannot make accurate prediction in the long run except for really specific system like Newtonian mechanics but but other than that um the the longerterm prediction you want to make the more the higher level of abstraction. So the way you define the level of abstraction is the horizon that you use to train the that level right. So you get a hierarchical architecture low level making short-term prediction with a lot of details and as you go up the layers fewer and fewer details but longer term predictions right. So the right level of prediction of abstraction to describe what goes on in this room right now is you know probably at the level of psychology and sociology and things like that rather than particle physics. Um and uh that that's that's how you so you have to choose your your level depending on the type of prediction you want to make first of all but then you also probably want to have uh a a a world model that is configurable to the situation at hand and uh I think that and so in the diagram that I didn't I didn't go into there's a module called the configurator in my like brain like uh diagram and that configurator actually kind of sets the the world model for the situation at hand defines sub goals and things like that. Um there is some some evidence that humans basically have a single engine for the world model you know prefrontal cortex and the evidence for this is the fact that we can only solve one conscious task at any one time right we can't we can we can do a lot of subconscious tasks simultaneously that we can drive and do do other things right uh but if we do a task consciously that requires a world model we can only do one at any one time, which means we only have one piece of hardware to do it, one engine, and it needs to be configurable for the situation at hand.</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">Do you have a comment?</div>
+
+<p class="speaker sherry">Sherry:</p>
+<div class="line">Oh, sure. Oh, yeah. I had some reaction. So, uh I I totally agree with the the hierarchical um uh philosophy. I think the challenge is just for one, uh where does the supervision for the hierarchies come from? like the supervision we have is really just the data itself like the videos or or the action information. Uh another is that even if we can uh rely on latent variable models and so on to get some kind of hierarchical uh prior that aligns with how we reason in an abstract space that I think like Yosha was saying that different dynamical systems or even different camera views like wrist view of the robot versus a third person view of the robot have very different uh perhaps latent space or different hierarchies. And if we want to train a more generalist world model at what hierarchical level do we end up fusing uh these different hierarchical representations so we can get a a single model training diverse domains it's not super clear and that was why I was sort of proposing the idea of like treating you know pixel um I mean maybe not raw pixels we will figure out the right tokenization so that we don't have to model extremely high dimensional uh tensors or but eventually it's still like in the form of videos is the most natural modalities that um all of these dynamical systems if eventually result in the data of this kind of form that we can have a unified representation and task interface.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Well, I mean so first of all you don't need supervision, right? I mean the the way you define the abstraction level is by the length of the horizon at which you train the system to predict, right? So</div>
+
+<p class="speaker sherry">Sherry:</p>
+<div class="line">you going to fix that by hand?</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Well, you so let's take the example. So okay let's talk about convolutional nets right so com nets uh you you do have this property that as you go up the the layers because of the pooling and subsampling you're you're basically gathering information that is more</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">but it's all fixed by hand we don't want that for like the abstract scientific stuff and so</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">there was there was a big debate you know back in the old days of people who said like u you know doing this pooling and chunking being uh you know fixed and by default is never going to work. We're going to have to do like you know segmentation and like put pieces of things together and be smart about where we cut objects and blah blah blah. That turned out to be completely useless. You can just do you know you can just propagate and in fact you don't if you have enough data you don't even need pooling. Right.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">Okay. But that's not a theoretical answer. It's just people have tried things in the past which didn't work. But I think there are good reasons why we should when we aim at like human level and really capable systems we should have system that can reconfigure uh on the spot and and uh really represent very rich set of uh abstractions where only a few aspects are relevant in a particular setting.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">I agree I agree with that.</div>
+
+<p class="speaker shirley">Shirley:</p>
+<div class="line">I just want to quickly mention that in our current model, we already adaptively put more compute in a much richer systems versus the not so rich system. So, it's just adaptively according to how complex the simulations are. But I do have a quick question. I think a little bit aim at Yasha's talk. Um, I think it's really nice that this scientist AI system that's very unbiased, but I'm curious if you consider training directly from the observational data like you will have the ground truth plus the language.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">The ground truth is the observation.</div>
+
+<p class="speaker shirley">Shirley:</p>
+<div class="line">Right. Right. But now you're still using the communication form. You're still using the text.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">Yeah. Yeah. We just want to know what is it that we're observing. Oh, we are observing people writing those words. It doesn't mean that those words are true. Currently, LLM are just like reproducing all the garbage that they're trained on, right? That's not what you want for an AI that's going to take life and death decisions in the future. So, you want the AI to understand that it's actually trying to, you know, make sense of what people said and maybe they were motivated, maybe they were trying to sell you something, maybe they were just a, you know, somebody who is misguided for another reason. And you shouldn't just be trying to reproduce what they do. What you should do is trying to understand why is it that they said those things. So if they say something like the earth is flat then you don't become like uh more likely to say the earth is flat but rather to say oh there's a reason why people say those things. That's what scientists would do.</div>
+
+<p class="speaker shirley">Shirley:</p>
+<div class="line">So you still saying that we should do still large language model but with some unbiased data set.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">I wouldn't call it the large language model just to make Yan happy as well. No, no, because um so one fundamental reason why it's not a large like there are many reasons but one of them is that um you're not trying to just reproduce the observed sequences of words or something like that. Um the other is that you you know you have a latent variable model. So you're trying to actually figure out what are the latent variables that are relevant in every context that help explain particular pieces of data. Um another of course is you're trying to be trying to understand the causal structure that explains the data. Uh there are lots of differences. Um but you could probably use similar architectures. I mean so it's more like how you train it, how you represent the data, what training objective you use, but you can still use SGD on transformers or whatever is going to be you know the hip thing in three years from now.</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">So uh maybe going a little bit more into the uh JPA uh dimension. So even if we assume we have a nice uh training recipe, we know what to disregard or to do the prediction in a bidding space uh without collapsing, we don't really have at pre-training time a way to account for the fact that we do planning uh at test time and we solve this complicated optimization problem. So I'm just curious, do you think uh you expect things to become naturally well organized and you know gradient friendly or do you think you need better objectives or or do you reconcile those two things?</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">That's a very interesting question. In fact, uh a topic on which uh some some people working with me are actively working on. And so the the space the embedding space that is appropriate for dynamical prediction is not necessarily the same space that is appropriate for planning. Um it's very likely that you can compute the the good embedding for planning from the the state that is used for prediction. Um so so basically the architecture would be you have an encoder you have a predictor that makes the dynamical prediction. It might need quite a lot of details about um the state. Okay. Um but then on top of this you can have a a head that computes a smaller dimensional embedding and you compute the cost function in that space and that space may be much more regular much more smooth um much more flat in some ways so that the gradient based planning is is more is more efficient. There's no reason for those two spaces to be the same.</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">Did you have a question?</div>
+
+<p class="speaker audience">Audience member (France, from Pedum):</p>
+<div class="line">Oh okay. Uh so France um from Pedum we're working on behavior cloning from unlabelled screencasts. Um so basically it's sort of a macro question a little bit. So basically we've uh today we've already heard that there are a couple of um use cases for world models. one of them being neural sim simulators essentially and specifically for that use case I'm wondering if you actually want a neural simulator and train agents in the neural simulator you need um the world model to the basically accumulating error over a large long time horizon to be um very low and and now the question is um and of of course this accumulating error will get lower and lower with more computer data and then sort of on a macro level the question is if We really want to train agents in world models. How much compute and data do we need and is this actually feasible? Um do you guys have any intuitions or thoughts on that?</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">The solution to divergence over many steps of prediction is hierarchical models so that the high levels you know can predict with the same time horizon and fewer steps. Okay. So for example, I'm going to I'm going to take a plane back to New York tonight. uh I don't need to know every detail. It's impossible for me to plan my trip from here to New York in terms of millisecond by millisecond muscle control, right? Because first of all, there's too many steps, but also I just don't have the information. Like I don't know how long I'm going to have to wait outside for a taxi to show up or something.</div>
+
+<p class="speaker audience">Audience member (France):</p>
+<div class="line">I I completely agree with this for look ahead, but for neural simulation as in training agents on them, you can't do that, right? Because you need local fidelity.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">I don't understand what you're talking about.</div>
+
+<p class="speaker audience">Audience member (France):</p>
+<div class="line">A as in you you have you train a world model as in let's say um next frame prediction next observation prediction condition on actions and past observations and then you train agents in that world model like dreamer basically for that you you can't do the like hierarchical planning trick right if you have a world model you don't need to train anything you just need to plan right</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">training training a policy is just a way to accelerate the inference of planning</div>
+
+<p class="speaker audience">Audience member (France):</p>
+<div class="line">but you don't need to trade. you can solve new problem zero shot</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">uh just a comment on the uh accumulation of error uh because that's connected to the reward hacking problem and so I think uh not really a new idea but uh not a lot of I don't see a lot of papers really focusing on um uncertainty estimation as part of what you're learning that's crucial to to avoid optimizing for something that's that's a mirage that that's just you know ma made up because of all that accumulated error. So it's not enough to make point predictions. You want somehow to represent the uncertainty around your prediction. And the uncertainty includes the fact that you know there's aloic uncertainty but also epistemic uncertainty but also computational uncertainty like you train for a finite time and so your predictions are like of lower quality and somehow all of these sources of uncertainty need to come in uh to make sure yeah there will be some sort of error but you want to uh know about it. So you can take the conservative decisions.</div>
+
+<p class="speaker sherry">Sherry:</p>
+<div class="line">And I guess on a related note of uncertainty and also accumulation of error and also the concept of hierarchy and also what I said earlier about a lack of supervision for the hierarchy and what Yosha said about are we going to manually set a horizon and I think um text um in some sense is a flexible way uh providing this implicit supervision for some kind of hierarchy in that even though we have a fixed horizon for how many frames we're predicting like 20 frames at a time, but we're predicting at very different frame rates when we condition on walking from this side of the room to that side of the room versus we're talking about walking forward for one meter, right? So naturally from text and we have this labels usually in maybe the videos already how much this person is walking and we have a way of automatically generating at very sparse frame rate far into the future to avoid uh or mitigate at least the accumulation of error problem while still having a way of naturally you know learning this hierarchical structure. Um and on the unc uncertainty aspect, if the actions are very abstract like text, um ultimately they will have like less control over exactly what happens because they're more abstract. There are many ways to walk from one end of the room to the other. But this is ties back to what Yosha is saying is if we have this layer of abstraction of the actions that we can control. Then you know there there are many different ways maybe we need to simulate many different outcomes and have these uh models of consequences and and judge these different rollouts different different ways of accomplishing this high level abstract action. So that's kind of my reaction to the question.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Tech text is a crutch though in the sense that uh it's a good engineering shortcut for a lot of tasks that are sort of relevant to to humans because we can express them as text. But like animals don't use text and they can do hierarchical planning and they have world models that are much better than any artificial world model that we have at the moment. Right? A house cat has 860 million neurons and can do amazing feats and can certainly do hierarchical planning. blue text.</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">Maybe one one aspect about the hierarchical part which I think probably requires a little bit more thinking is the fact that when we abstract we can abstract representation we can uh abstract time but then we also have to have a reliable guess about what's going to happen on the low level. Right? So there is some primitive control that happens at the low level that should be as reliable and predictable as possible because if it's messy and nonpredictable then this breaks all the levels of the of the construction of the hierarchy. So when we say I go to the airport, it's because I have a reasonable guess that I will know how to do it and manage all the contingencies of this high level task and how to find the proper primitives at each level of the abstraction so that we can build reliably the uh uh the hierarchy. I think it's it's not so clear. I think it's still a difficult</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">I mean it's the deep learning problem, right? I mean the the question of what you know abstract multi-level representations to learn uh</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">I I think here</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">the problem that deep learning has been addressing for</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">I'm just studying the control part.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Well so so what I was going to say is that the the problem we're facing now is that instead of uh being able to learn hierarchical representations for perception we need to learn hierarchical representation for uh uh you know action control.</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">Yeah, that's that's but the the question is if I say I go from uh let's say hierarchy level two state to another one what what is the activity that I'm doing what is the primitive action at that level and there might be many and how do I learn what are the the core components uh of of this second level or</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">ideally you want that to emerge from from the training right</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">yeah</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">and uh so maybe just going on the key again So as you mentioned right when you have a deep network like a confet or a restn net you explicitly have those pooling operation subsampling and so this emerges although you have only one training objective at the end uh but in the diagram that you showed you have those different uh sort of JPA block. So in your settings do you think hierarchy needs to be explicit extra terms you have in your loss or you think it should be the architecture level and it will emerge from one you know final loss only</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">I mean you need a prediction error and a regularizer for every every stage and then there's a question of we were just talking about this in the context of a question of like what is the gr granularity of a stage in a hierarchy is it uh just one layer of a neural net or is it like a bunch I mean currently most of the jetpacks we've trained are actually quite deep because ultimately we use you know benchmarks to measure the performance in terms of like semantic tasks in you know action recognition or something like that so so our networks are super deep um but you know what we want to do is basically have a pretty fine grain uh hierarchy</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">just another point I'm curious to hear your opinion about that so when we say that the the representation should refine one each other because I abstract away farther details. Uh in in some cases we can observe that actually it's just complimementaryary and not refinement in the sense of for inance if I have to move my war model for movement is probably ignoring a lot of the things that surround me whereas if I have to uh define a war model to go from one place to the room to the other one probably I'm considering other set of variables. So doesn't seem necessarily like a a one-way abstraction. It seems like every level which might be temporarily hierarchical, the level of details are not necessarily one the refinement of the other. Uh so they might just take different parts of of the state in a sense.</div>
+
+<p class="speaker audience">Audience member (Stefan from Skype AI):</p>
+<div class="line">Hi, my name is Stefan from Skype AI. Um first of all, thank you very much for the very interesting talk today. I had a couple questions on causality, uh which I think everyone agrees on is is very important. Um Yosua, you you talked about it most explicitly. Uh one thing that I think is really interesting about causality is interventions and I think that's how humans really learn causal models very quickly. Uh however, you explicitly don't want the model to be able to pick uh those interventions.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">I didn't say that. No, because I talked about the core predictor which is non-aggentic. So the predictions are not biased by some goal. But once you have it, you can turn it into agentic questions. just you can ask what you know what is the action that's g give me this outcome. Of course you have to be careful but but but the problem you want to avoid is that you know it's not the human setting some goals. The problem is the AI having some hidden goals that you didn't choose. That's what I'm trying to eliminate.</div>
+
+<p class="speaker audience">Audience member (Stefan):</p>
+<div class="line">Yes. I I think that makes a lot of sense and I I appreciate the clarification there. I was just wondering how do you select the data if you don't want to be able to select the data because that would make it aic in some sense.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">No. So, so this is a solved problem at least theoretically and is used in experimental design in scientific discovery. For example, I worked in drug discovery. So, you you can you can use your vision predictor um to train if you want another network that estimates uh some information gain which is a mutual information. Um and then you can optimize your policy towards maximizing that information gain like which action is going to give you more information to dismbiguate your lack of knowledge of the world. Uh that it's not sufficient to do that. You want to make sure the action also is not to create some harm. But that's can be part of the objective. uh and you know there are more complications but that's what I meant when I said once you have a non-ogenic predictor you know that's basin and causal you can you can use it as a building block for agentic systems but you have to do it carefully because all the problems that we know</div>
+
+<p class="speaker audience">Audience member (Stefan):</p>
+<div class="line">thank you that's that's very helpful for clarification uh and I had a second question for um Yan you on your last slide I talked about causal that you hopefully voa can learn this causal model of the world and I was just wondering if you had any more insights on how Jeepo would create that those causal connections.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Well, the case that that we've used, we it doesn't create it. It's just fed, you know, state action next state. That's a causal model, but it doesn't doesn't do any causal inference or anything. It's just given the the uh uh you the variable set that that you can you can act upon. U now now there is you know the the the latest the last model I talked about where you infer the action. You might be inferring actions that are not there, right? And and humans are fooled by this too, right? Um like if you ask a a four-year-old, what is the cause of wind? Like half of four year olds will answer it's caused by the motion of the leaves in the trees. Okay? And you know humans you know for thousands of generations have attributed uh causes to all kinds of natural events. Like if we were perfect at causal inference, religion would not exist.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">But it doesn't mean we shouldn't have causal components in in AIS, uh it just means that humans have, you know, reasoning models that suck. Um and sometimes sometimes um you care about interventions um in a place where there is no way you can have an action. So, I can imagine what would happen if some, you know, Titan were to move the sun around. Even though, of course, I've never experienced that. I could never do it. But I can still imagine it. And this is something that if you limit your interventions to the actions of an agent, like a robot, you couldn't do. We can do that. And we can do other things that go beyond interventions called counterfactuals. like what would have happened if that's another thing that you can't do if you know you you just have this uh action and past observation to next observation or state to next state.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">You can absolutely do it. Of course you can like if you have a world model that makes you know good predictions you can you can absolutely predict what would have happened if you've if you taken a different actions that you did not</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">everything else being equal including all the randomness in the world</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">within limits</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">judges ask this question all the time by the way</div>
+
+<p class="speaker sherry">Sherry:</p>
+<div class="line">yeah I actually had a question for Yosha and Yan on the related note of uh like learning latent actions from actionless videos for example and Yosha was mentioning that there is this confounding not confounding but like the in between two frames in between two observations two things happen action happen and some environment dynamics transition happened one is controllable by the agent the other is not. So when we just try to learn some kind of extracting latent actions from the difference between the two observations, how do we actually distinguish which ones are controllable, which ones are not? And if we just boldly optimize those, wouldn't we run into the problem that Yosha is describing?</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">No, I mean, we don't know how to do this, right? We don't know how to make a clear difference between latent variables and and actions. you know whatever complimentary information is necessary to make a prediction. It could be a variable that you can influence or it could be a latent variable that you're not observing that you know explains if if if the world is deterministic but not fully observable. But it could be also that the world is just not deterministic. Right? So um yeah but again u as humans we very often make the confusion between the two and we attribute causes to things that don't really have one. But it'd be great to have AIs that do figure out the difference and that means they have a good causal model. Um, so somehow that needs to be represented. Now, um, maybe it comes out implicitly, maybe it's something that the AI can actually verbalize about, which is what I've been talking about. Um, I don't know what is right, but it's it's good to explore.</div>
+
+<p class="speaker sherry">Sherry:</p>
+<div class="line">Yeah, that's kind of like why I believe in explicit action labels in the data. So we can actually learn pi of a given s and then t of s prime given sa separately and control only the part we could control.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Obviously if you can get the data you should do that</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">but but still there are a lot of problems where you care about the things that you don't control right. So I think there is still this indecision</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">you still need to model them.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">Sorry</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">you still need to model them.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">Exactly. Exactly. uh so I think there is uh you know what we control and we care about what we don't control and we don't care about what we don't control but we care about and I don't think that from completely passive data we can distinguish among them with active data we can probably disentangle a little bit but ultimately it also depends on the task that we want to solve autonomous driving I think is a very good example there is a part that I control there is a part that I don't control which are the the other cars and then there are the leaves uh that that don't control, don't care.</div>
+
+<p class="speaker audience">Audience member (Man from NYU):</p>
+<div class="line">Hello. Uh I'm Man from NYU and uh I'd like to continue asking a question on the abstraction and the hierarchy part. Um so I was just curious like do you think um you know the latent predictive loss uh predicting the embedding loss is all we need for achieve the level of abstraction or is there any other you know potential missing ingredients that you feel like are promising for the researchers here to explore? uh like for example uh in the past we've also tried to add multiple hierarchical loss across the layers but the gain seems to be very minimal compared to just having one single global latent uh loss predictive loss on the top. So it seems like pushing deeper layers and having more like these such loss doesn't give us much of a jump in the terms of the abstraction that we're looking for. So I just tried to know be curious uh what's your thoughts potential thoughts on like</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">I don't pretend to know the answer to this because I don't think there is enough uh there's been enough work on hierarchical models done right there's been hierarchical models they just haven't been done completely right and I know you've done some work on this but uh but it's not fair to me what the correct answer is I think there is a a bias that we there's two points one is um we bias towards learning high level representations because all of our benchmarks are basically semantic tasks. And so when we measure the performance of our systems some downstream task by you know training a a supervised head on top of the representation it's always you know high level task right so so obviously we're going to have an advantage in learning you know high level representations as opposed to low-level ones. Um may maybe when our benchmarks change that there you know something like visual servoing or something like this uh there you need like really fine grain uh representations and and uh low-level control uh maybe that would be different but ultimately I think you want like a different separate loss function for every layer and then the second point is that we're probably going to have to engineer various objective functions to drive the system to learn the type of representations that we want like bias it to learning representations uh that we want and pay attention to the kind of features that we want them to pay attention to. I don't think we're just going to get away with um completely generic information maximization criteria.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">Um I just want to add about hierarchy. Um for most of my career I've made the mistake I think to think of hierarchy especially you know in the early days of deep learning 20 years ago uh to think of hierarchy as being captured by the layers in a neural net that's how deep learning started it was very strong in my mind oh yes we have a hierarchy of abstractions and blah blah blah I think it was a mistake if you think about the kind of hierarchy that humans construct uh to understand the world. Um it's not fixed. It doesn't map with to a fixed architecture with like 10 layers or 20 or 100. It's something we construct as we build an understanding of the world and maybe somebody tells us and we don't even like retrain our neural net completely. It's just oh I didn't think about this way of abstracting. So I think we should think of abstraction as something indirect that is not like just hardcoded in the architecture.</div>
+
+<p class="speaker sherry">Sherry:</p>
+<div class="line">Um yeah I had some thoughts on that too where you know Jan said okay animals don't use text. So I think naturally um the hierarchy arises from data when we have some kind of labels. Let's say we can if we can scan all of the animals of their brains activities of when they move how did their brain change to control all of the muscles then we actually have a way to control these animals. We can train a generative model sorry condition on these brain scans right we can change how their brain scans move like activate these neurons in their brain scans and then because we've have this data of all of the scans for all of the animals I don't know we planned some kind of brain moni monitoring in their it's not very very nice but we can get that data and then as a result we actually have a way an actual representation that we can use to predict the observations and also have the policy ies to plan at this level of abstraction where we have some data for you know because we don't have that data for scans of animals. we don't have that data for uh human brains but maybe in the future yeah like when we do have a lot of data like enabling human to just think of things and then being able to control things this kind of human brain and and machine uh robot interaction I think is possible if we can gather such data right now we just have text data so</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">no but there's a solution it's called latent variables I mean the whole point of having latent representations is to avoid requiring somebody to tell you what the hidden units or the abstractions whatever you want to call have to be. That's the whole point. We don't need that. I mean, of course, if we had it, it'd be nice and, you know, it'd be easier to learn, but we don't have it</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">and we're not going to get it, by the way.</div>
+
+<p class="speaker sherry">Sherry:</p>
+<div class="line">People are actually collecting the data you're talking about.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Yeah. But not not at the level that she needs.</div>
+
+<p class="speaker sherry">Sherry:</p>
+<div class="line">Well, depends depends which animal. I mean, you can do it with small animals uh or like zebra fish. They they're transparent and and so you can you can</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">hack their neurons so that they they</div>
+
+<p class="speaker sherry">Sherry:</p>
+<div class="line">they flu arrest when they fire.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">So you can pretty much get a picture of like all the activity. Of course in humans you can only do MRI or MEG which is not nearly as uh</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">but but the point is humans don't need it like we construct abstractions. Yeah.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Without label data on these abstractions. This this this is one of the beautiful things of the human mind.</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">So maybe I have a quick question on what you just said with the abstraction going through the layer. So there is one thing</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">not through the layers.</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">Yes. So I have a question on this. So we know in term of information right as you go through the layers you cannot add information. You either have as much or you reduce it. But what we care about is not really information as this abstract quantity that we don't even know to estimate anyway but more uh what can we use for downstream task whether it's linear probing gradient based uh planning. And so when we add those convolutional networks for example we said okay we can disregard let's say special information because what we care about is not really sensitive to that. So we simplify the way we probe and uh extract information from the last uh embedding. And so I'm wondering when we speak about abstraction uh or just what information content we have it should really be with respect to oh you want to use this uh post training and I'm wondering if you have a way to either measure that or what do you think is the right way to speak about useful</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">so you don't need post training or you don't need like a task you have the data that you observed and you want good abstractions to make sense of that. That is what science does before it starts doing experiments is just tries to make sense of the data you observe and it looks for abstractions that are compact and like you know scientific uh regularities and laws that give you that that's that's it and you don't you don't you know of course depending on the kind of data you collect there might be different abstractions that are most emerging from the data like before we had microscope OPES there were lots of abstractions that we didn't even think about because we didn't have the data that revealed you know the need for these abstractions.</div>
+
+<p class="speaker audience">Audience member (Sergio from Brown):</p>
+<div class="line">Hi my name is Sergio from Brown. Um my question is for Yan Lun and regards to how you answered a previous question. So when I look at humans and how how essentially the the the pillars of behavior for like humans when I see essentially you have like learning from demonstrations right so something like imitation learning you have learning from trial and error so something like reinforcement learning and then you have you know world models and planning right those are like kind of the three things I've identified that like how humans tend to act in the world. Um, in a previous question you said if you have a world model like why would you learn? Do you do you see value in things like imitation learning and reinforcement learning? Um, yeah.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Yeah, sure. I mean, first of all, there's a lot of species that don't do imitation learning at all and they get really smart really quick. Good example is octopus. They only live a year or two. Uh, most of them don't actually, but a few of them get to adulthood. Uh, they never meet their parents. Um, so and they're not social animals, so they don't learn from each other much. Uh, but they get really smart very quick. So obviously it's possible. Um, I mean it's true also of, you know, cuckoo birds and things like that. They never meet their parents. So So imitation learning is certainly useful for humans because we're a social animal. Um but uh and and mammals no so we raise our kids but uh but it's not necessary a lot of animals can do with that. So that's the first point. Um second point is um reinforcement learning is a cherry on the cake. So it's it's much better to do reinforcement learning with a world model in the sense that uh if you use reinforcement learning like model free reinforcement learning to train a car to drive itself and the car drives next to a cliff and the car doesn't know that by you know veering to the right it's going to run off the cliff and it doesn't know what's going to happen after it runs off the cliff. So, it's going to try this, right? It's going to have to try this thousands of times before it figures out it's a bad idea to run off that particular cliff. And then when it meets another cliff, it's going to have to learn again. Um, and so it's impossible to train a machine a car to drive itself model free using reinforcement learning. There are people, you know, 15 years ago who believed that was possible. Uh, built entire companies around it, bought entire companies for hundreds of millions around this idea. complete failure, right? You work for it. Um, they changed their mind since then. Um, so, so that that can only be like the the last, you know, cherry on the cake that sort of, you know, allows you to adjust. But there is one way that reinforcement learning can be used, which is that the cost function you use for planning, uh, needs to be trained. And so, it's like learning a value function, right? And that's part of reinforcement learning if you want. It doesn't have necessarily to use all the techniques that reinforcement learning is using. But like a big chunk of reinforcement learning at the moment for LLM is learn a reward model. That's what reward model is. It's a cost function for a particular task. But if you have a world model, you can use it for planning which LLMs don't do. Um they just use it. I mean their um so-called reward model is just a a proxy for the the cost function you don't know. So you have an approximation of it that you can back propagate gradient through. That's that's what it is. Uh so yeah, I'm not sure I answered the question, but</div>
+
+<p class="speaker audience">Audience member (Sergio):</p>
+<div class="line">yeah, I mean one so one thing I like really can't reconcile with with something like MPC using cross entropy method or MPI is typically you need like on the order of like thousands of concurrent simulations and so that that's hardly real time like reactive policies, right? Like you're you're assuming quasi static motion at that point if you want to do object manipulation.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Okay, I think there is a stack this this high of you know techniques that need to be worked on to uh to make you know NPC with complex learn world model more efficient. So the first one is hierarchy. So if if you do hierarchy you don't have to plan thousands of actions you can plan two or three actions right? So the example of uh you know flying back to New York u I can do a high level plan which has two actions going to the airport catch a plane. Okay, now I have a sub goal being at the airport. U two actions getting out of this building, catching a taxi. Okay, now how do I get out of this building? Right, walk to the door, you know, walk out, etc. And then at some point you get low level in the hierarchy that you can you don't need to plan. You don't need to use a world model like to stand up for my chair. I don't need to plan much. Um you know, it's a task that I've done many times. It's become system one. I can just use a policy. not you know not not my world model. Um so that's how you make this efficient. You make first of all hierarchical planning and then when you get down to a particular level where you get down to a task that you're really familiar with you just use system one and just a policy and no planning. Uh then the second thing is using the so-called cross entropy method which is just a particularly stupid way of doing uh ensemble based method gradient free assemble based optimization method. The reason why many of us use this is because it's slow but it works and it's not the problem we're interested in at the moment. We just want a thing that gives us a good a good plan and we know it sucks. Okay, some of us in this room um where is Umayima? right here u is working on gradient based uh planning because obviously everything is differentiable why don't I use gradient based optimization right now there's local minima issue there's all kind of issues so but there is again a stack of ideas like this this thick uh to try to make this more more efficient and then there is the problem of um what makes planning inefficient is that you you know you really want to plan to the end of the episode but in practice you you almost you can never do this right so one solution is hierarchical planning as I was telling but another solution is a value function that allows you to do partial planning so how do you train a value function efficiently so anyway like there is you know space for like you know a dozen PhDs for five years to work on this</div>
+
+<p class="speaker audience">Audience member (Sergio):</p>
+<div class="line">cool thank you</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">just a point on the generalization part because I think that's that's also quite interesting So why a policy should generalize worse than a war model? In the example you were providing, if I go on the right, I go off the cliff, a policy would be able to generalize to some extent. A war model would still need to see a lot of cliffs to be able to know that that cliff if I turn on the right this is what happens. So there is a level of of generality that needs to be supported by data. And just just just another aspect is that it's true that probably there are things that are intrinsically more generalizable because they are short-term one step type of war models but onestep war models they have accumulation and on the other hand if I do abstraction then again they have the same issue as as a policy in the sense that policy it's learned by having seen the long-term consequences of one action and the same for a multi-step war model. needs to know what's the long-term effect.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">So, so there's a fundamental answer to your question. It's called system two. Okay. The reason why we have system two is because we can't train a system one thing that will learn everything, every situation, but we can train a world model. Okay? And once we have a world model, we can do runtime optimization for a situation that our current system one hasn't been trained well for. And so it would suck.</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">But from a machine learning point of view, so war model is still require samples, right?</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">No, but the world model is much simpler than having to do the inference for every possible situation. Two things.</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">So yeah, I totally agree with you. Uh a policy is task specific,</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">right? You're going to have to learn different policies for different tasks. So you're going to need more data, right? And in fact, that's what everybody is doing at the moment, right? the the best uh robotic system at the moment use things like division policies and they require tons of imu imitation data or tailor operation data or whatever to uh be able to do anything significant which is why I've been saying I got a lot of heat for this on Twitter but I've been saying u you know all of those robotics companies that are you know building robots absolutely none of them has any idea how to make those robots smart enough to be useful because they're all you know hoping crossing their fingers that the sample efficiency of training those robots will get better and that the number of you know useful tasks that those robots can be used for uh is is going to be wider than the current one. You know currently you need a lot of data to train a robot to do any particular task and it's brittle and you know it doesn't generalize a lot. It generalizes a bit obviously but not not a lot.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">So as Yoshua said if you have so first of all a world model does not need to be uh task specific um it can be learned u uh through observation mostly if you can observe or infer actions you don't have to actually act in the world to learn a world model you just have to observe state action next state and if you don't observe the action you can infer it so that means you have tons of data that you can use to train your world model which does not require actually having an interaction in the in a real environment or in a simulated environment.</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">But then then it's because you're you're taking the online RL part. So online RL I I think we all agreed in sense I really need one task and I really need to optimize and I need for even just one thing I need a lot of same</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">it is model based RL in a way that Yan is talking about that's very</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">yeah no but what I'm what I'm saying is that the the S prime data once you give me a task I can label it with the reward and I can do offline RL without even interaction so I can still compute optimal policies or good approximations without interaction. So</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">yeah. Yeah, I thought about that question. So you know for a while there was this tension between model free model based and seems like for a while model free was really dominating. Everyone is working on policy gradient Q-learning and then and then you know I even remember reading rich Sutton written writing uh articles and books on how it is much simpler to learn an optimal policy than to learn the dynamics model of a complex dynamical system. But then I think I finally get why he said what he said because in a single task setting if we're thinking um it it could be true that learning the optimal policy in a model free way is simpler than having to learn a dynamics model but uh like what Yosha and Jan's already saying are already saying uh we're we're in a domain where we're no longer concerned with single task. We we did single task for for AlphaGo or for uh local uh Majoko for for these model free methods. But what we're the situation we're in now is many different tasks, many different policies trained for different under different reward functions for different reasons. But we all live in the same world governed by the same set of physical laws.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">No, I mean I we are in a war world war model warship. So I I think I you know I I</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">we have the audience with us.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Your Randall invited me to be the RL guy. So I'm trying to play the that role. What I'm saying is that for instance if I train a goal based RL policy from offline data not not even a single interaction</div>
+
+<p class="speaker yann">Yann (continuing debate):</p>
+<div class="line">in goal condition</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">goal condition yeah goal condition policy uh then I have a fairly generalist policy that would generalize</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">no no</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">no</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">no there's a fundamental like mathematical property that inference is exponentially if you want to do like exact inference is easy to show inference is generally much more complex like the number of bits you need to represent the inference function is exponentially more the number of bits you need to represent a model. So if you had a model of anything in the world and you ask yourself now I want to be able to answer any question like what do I do in order to get to this point the the the number of bits you need to represent that function that inference function is exponentially larger than the number of bits you needed for the model itself. Now how I mean of course if you see enough you know you might get some good generalization but but then you'll end up with like out of distribution generalization you're going to end up with new cases and that is where you need to do things online. Exactly. I mean on the fly just system two that's what Jan was talking about</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">but this is exactly what happens when I unroll models I go out of distribution because of the error accumulation</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">even when I plan with models that's a second order problem which is your model your model sucks because now it's out of its region and that's why you need to be causal by the way but but yes</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">no problems I agree on this on on the statement that learning a war model is simpler simple complexity wise</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">than learning a set of policies go. That's right.</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">So this I agree but</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">But if we then add the the end goal which is eventually I want to optimize for something</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">it doesn't change the statement I made earlier</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">like if you were to write the computation that is needed</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">is very very big.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">Yeah. Even if you input the goal that you want as an input to that like huge neural net. Well, it's uh what what I'm saying is the computation you need for a war model.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">No, but if the computation you need to specify the right policy is exponentially large. That means you need exponentially much uh exponentially large data sets and that's the sample efficiency problem of like standard model free RL</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">for behavior cloning. Yes. or like not</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">to to rephrase what Yosh is saying there is the the inference process for for planning produces an output by optimization right by searching for a sequence of actions that optimize a function that's potentially unlimited in terms of the time it takes and the amount of computation it requires computationally extremely powerful but you can reduce any computational problem to an optimization problem. You cannot reduce any computational problem to a feed forward propagation through a policy network with a fixed number of layers, right? There is a lot of functions you're not going to be able to implement this way.</div>
+
+<p class="speaker alessandro">Alessandro:</p>
+<div class="line">I but I again I'm making a statistical statement. So infinite compute that's fine still uh apart from the physibility of the optimization phase the error accumulation that happens it's a statistical argument in the sense I definitely I train the war model on a lot of data but I haven't seen everything and as soon as I do the optimization part infinite compute I will go out of distribution</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">that is why I be talking about uncertainty estimation as part of the world model if you don't do that you're going to get screwed at some point</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">right also why you need a hierarchy</div>
+
+<p class="speaker audience">Audience member:</p>
+<div class="line">if I can ask my question. So uh my question is uh I have two question. Um the first is how do you view the differentiation of the word model depending on which task you are trying to solve. It seems to me like for example alpha fold is very is working very differently from current coding which is working very differently from Alph Go and it's not obvious to me that those do not have like some kind of word model because it's kind of illdefined in my opinion. So um I'm curious about how you view the differentiation and also um it's more a question for but uh you you really want to build robots but for example it seems to me like current uh coding agent like code and that kind of stuff they seem to be pretty good and becoming better and better computer users and I would not be surprised that they become like superhuman at this and from the literature it's not obvious that they don't have a kind of world model because they're able to answer to question understanding human like manipulating code that the super human will. So I'm curious about your opinion.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Well, so you know, Antropic is not publishing anything. So they're not telling how the systems are working. Um, so we can only guess. Uh, there are people who are producing code production system that that have world models. Uh in fact there's a paper by my former colleague Gabv and his uh his team at at fair Paris called CWM code world model. And so what is a world model in concept in the context of code? If you the the state of a program is entirely determined by the state of the variables, the value of the variables and the and the call stack, right? And a program is marovian deterministic, right? First order mrovian in that state it completely defines the state of the program. Now an instruction is like an action. Can you predict the next state of the program resulting from an instruction? Right. So you are saying we could build LM that behave more like a world model.</div>
+
+<p class="speaker audience">Audience member:</p>
+<div class="line">But my question was more do you think how much do you think current model like let's say clopus they have some kind of world model that</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">I don't know I don't know but they they could be using similar to what the code model. So the reason why code word model works in that context is because uh the space of code is you know well captured by discrete tokens. Um and so you can use an LLM to basically you know here is a description of state of the variables here is the description of instruction you know tokenize predict the the next state you you can do that right and you could use this for planning too in fact that's what they do in that uh in that paper. I think ultimately you want a JPA version of this because you want abstract you don't want abstract representations of the state of variables. For example, if you have uh I don't know an array with a million numbers in it. Uh you don't want to be storing the million numbers in the context, right? You just want to say this uh array is sorted or not, right? That it's you you don't want to be you want an abstract representation of the the content of those variables. So ultimately you want to use Jupa, but but that's not what they what they've done so far. Um now the the more interesting question is if you just train a regular LLM does it have an implicit world model of what happens in code or or in something else?</div>
+
+<p class="speaker audience">Audience member:</p>
+<div class="line">That that was my</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">right the answer is probably not like not to the extent that you can use it as a world model because there is no distinct you know clear distinction between state and actions. You if you want to use it for planning you need a you know a separate notion of what an action is. Um and it's not clear you you have it if you just train.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">You do you do because natural language allows you to say oh if I do this then what will be the out the output of this program. So you definitely can represent actions</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">right and that's kind of what they do in the cold war models. They have like special markers to kind of you know make the boundary between stuff. So so maybe implicitly it can do this but that only works in in sort of discrete spaces with LLMs. If you are in a in a environment that is you know high dimensional continuous noisy you're not going to do it with uh with uh with with that um and and and then there's a question of planning. So it's clear that a lot of code generation systems use some form of uh reasoning or planning but the way they do it mostly is first of all they do it during training uh to kind of you know generate code and then verify which one work and you do RDF right reinforcement learning through execution feedback u to adjust the the the system automatically that's how they get so good and then at runtime you just get the system to generate lots of different programs and you have some other LLM that chooses which looks best and you know since that you know run that one and if it doesn't run properly you can try another one and so that's a very primitive form of search through a set of actions um it's would be much better done in abstract representation space than in token space but right now the extension of LLM to get them to to reason is generation of lots of token sequences and then selection of a token sequence that is best according to some evaluation function. It's very similar to the way uh you know game playing systems work, right? You you have a tree of possible moves. You you try, you know, multiple moves with some heristic with neural net that predicts, you know, which moves you should try and then you have some value function that evaluates what the endpoint is and you pick that that move. So, it's like uh, you know, MCTS or tree exploration and stuff like that. It's very similar, but it's a very primitive form of reasoning. And by the way, this is a form of reasoning that humans totally suck at. Like we're terrible at tree exploration, right? Because you can buy a 30 buck gadget that would beat you a chest. Certainly beat me. So um what that means is that tree exploration is something that computers are particularly good at. uh and if you can reduce kind of programming to sort of uh this type of of reasoning uh automatic programming will get better than than humans. Um one point interesting point I want to make too is that there are at least two domains in which the language itself has sufficiently strong structure that reasoning in the language space actually makes sense. One is code the other one is mathematics. So mathematics, we all know this if we do math, right? Writing a bunch of symbols on the page and doing derivation actually kind of produces stuff that we did not necessarily think of ahead of time. Right? So just to jump on on that because that's exactly why I was asking the question would it be would it be possible that in the future Japad do not have a significant competitive advantage in those space like it would work like as a robot way better than an LLM I really believe that too but I don't see why it would be necessarily better in those domain and</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">because because I think for you know like the the design of a software system for example you need to think in an abstract representation space you you're not going to do it in token space right you think in terms of like you know complex data structures and like you know macro you know big functionalities that transform one thing into another like you don't think in terms of individual instructions right so</div>
+
+<p class="speaker audience">Audience member:</p>
+<div class="line">tokens tokens can be abstract as well I mean um</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">for example these systems are trained not just on the code but the comments that people put which have a lot of abstractions in them</div>
+
+<p class="speaker shirley">Shirley:</p>
+<div class="line">I just want to come in with a slightly related question to this is we talked about world model that is this all-encompassing can do everything it does all the planning actions and states but then we talk about code work model that does one thing so I'm curious you know even with the audience like what do you think is the definition of world model does it have to be really can do a lot generalized task any task can you specialize to do one thing and as a scientist I'm kind of surprised that you know people aren't super excited to take all the sensor data it's mostly still text so just throwing it out there to see reactions</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">Well, um, the entire purpose of this new company I'm building, Emabs, is AI for the real world. So, basically dealing with sensor data, you know, not just video, but like any kind of uh highdimensional continuous noisy sensors. That's completely orthogonal to what LLM can do. LM totally suck at this kind of data. So, yeah.</div>
+
+<p class="speaker yoshua">Yoshua:</p>
+<div class="line">So, in defense of LLMs, um, I mean, I've said bad things about them.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">No, but but I think we have to be fair. um the the the leaders of the companies that are building those LLMs, it's very clear that they have a plan to use their I mean I wouldn't even call them LLMs anymore because they're agents. So it's it's not it's a misnomer, but whatever. They they use the systems with the current recipe for frontier models uh to do programming math and then to you know graduate to machine learning research. And so they think that machine learning research is sort of an extension of programming and math that will open the door to solving other problems in AI. So they they think that and I don't know if you know this correct but they think that this uh symbolic space where language is appropriate for math and programming will extend to research questions of the kind that human researchers do when they do research in in AI and then that will unlock all the things that they don't know how to do with like robots and so on. I don't know if that's going to work, but that's clearly what they have in mind.</div>
+
+<p class="speaker shirley">Shirley:</p>
+<div class="line">I beat them good luck.</div>
+
+<p class="speaker yann">Yann:</p>
+<div class="line">I just want to know people should know it's reported I think they're going to release the AI research intern this summer from one of these frontier labs. It's on the news.</div>
+
+<p class="speaker sherry">Sherry:</p>
+<div class="line">Uh my answer to like what really is a world model? I mean the definition is in the equation. It's a model of future observations condition on past observations and and some actions, right? But then the real question is what are these observations and what should we be modeling and I think from my talk today about robots um and I think for a lot of code domains as well and as well as machine learning engineering where I think nowadays people are going to use LLMs for very long running agents like the agent whether it's extended reasoning whether it's ML engineering whether it's coding that takes hours to go into some obscure codebase and all of this if we do the things that people are doing it which is online interaction using online RL to train these models that's going to be extremely expensive and so the role of world models is there to save us time as an intermediary between any agent between agents and the real world so that you know the the agents can still interact with the real world when they want to and then the data come back not just to train the better agent but to train uh an predictive model of the future observations and what can we do with that well we can predict losses for training machine learning models if we have a lot of data so that we don't have to run the model to know that okay, ResNet with only 10 layers is going to be worse than ResNet with 50 layers. And we can train models of not just performance, but also models of cost. How long is it going to take to run this action versus some of the other action which I think is a problem that hasn't really been studied as much in RL because MDP formulation doesn't really take into account of the amount of time it takes to execute actions which I think are extremely important. And if we don't have a world model, some actions are going to take a really long time, some are going to take a very short time. How do we do optimization? It's really not clear. But the point is just, you know, if we have a a world model of not just the outcome, but also like the time it takes to to to acquire these outcomes, the agent can make more smart decisions about should I try this action that's going to take two days versus this action that's going to take two two hours, right? So I think the world model provides a lot of richer information for agents to make a lot more smart decisions while having low cost whether the cost is you know for robots it's physical cost which is extremely high and now it's like a learned model it's lower but even for virtual settings where things do take a very long time world models allows us to have this temporally abstracted prediction that allows us to make better optimizations for the actions</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">I think uh so this is yeah a great uh concluding remark. So thank you.</div>
+
+<p class="speaker audience">Audience member:</p>
+<div class="line">One more question.</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">So unfortunately we have to uh move on too.</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">I also wish we could hold all this longer but unfortunately some of them have to leave. Uh feel free to try to catch them up offline but we have to move to the next part of the program.</div>
+
+<p class="speaker randall">Randall:</p>
+<div class="line">Uh sorry about it. So yeah great. So thank again to the panel for the great discussion. And uh we will now have uh Mido presenting.</div>
+
+<hr style="margin-top: 40px;">
+<p style="font-size: 0.85em; color: #888;">
+  <em>End of panel discussion. Transcript reconstructed from workshop audio transcription. Speaker attributions are best-effort based on context, speaking patterns, and topic continuity. Minor transcription artifacts from the original audio may be present.</em>
+</p>
+
+</body>
+</html>
