@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brainstorm Session: Generalizing Backprop</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+        section {
+            background-color: #fff;
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #34495e;
+            font-size: 1.2em;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Brainstorm Session: Generalizing Backprop</h1>
+    <p class="subtitle">A Lab Discussion with Yoshua Bengio and Students</p>
+
+    <section>
+        <h2>1. Introduction: Generalizing Backpropagation</h2>
+        <p>Uh, hello. Uh, we're gonna do a little brainstorm session. Um, so I threw some ideas by email, but feel free to bring more things. So the idea that I wanted us to discuss a little bit about, and have your point of view on, is how we generalize the principle of backprop.</p>
+        <p>So backprop has been incredibly successful in deep learning, but it relies on these, uh, very smooth, uh, operations, uh, or it ignores gradients when you are in saturation regions. For example, rectifiers. Sometimes you want to take even more nonlinear transformations, or maybe discrete decisions in the middle of the computations. And I think in this lab we've been exploring a number of ideas. For example, what York has been doing, or Chalar, and it's connected to things that... where is Dima? Dima is not here. Somebody should get Dima. He's, I think he's in the other lab, Dima Beta.</p>
+        <p>Um, so, um, so yeah, I don't know if, uh, people have things they want to bring to the table or I can throw some, some more, um, suggestions.</p>
+    </section>
+
+    <section>
+        <h2>2. The "Curse" of Backprop's Success & Noisy Gradients</h2>
+        <p>Any, um... the idea with backprop, though, is that it seems like it's a very good way to train the models that we're using now. But, um, but, um, what I liked about the list of topics that you put up was the idea that backprop is not the only way to do that. There's multiple ways. Backprop just seems like the most technically correct, like, uh, right, finely tuned. But as much as we know that if you want to learn, you want to use AdaGrad, RMSprop, and all that, these are just variants on backprop. Yes, they are, but they sort of tell you that the gradient isn't the most useful thing in the world.</p>
+        <p>And on top of that thing, we use mini-batches, so the gradients that we're getting are already noisy. So there's already something bad happening there. And I'd say the counterpart also to that is if backprop works great for the models that we're using, maybe there are other models where it's not really backprop that should be used. Or, right, you're saying maybe we're stuck in some set of models that work well for backprop and we're not exploring elsewhere. We're sort of cursed with the success of good models that can be trained with backprop. So if backprop was bad, we would be incentivized to think about a lot of other things, but now we're...</p>
+        <p>Right, right. Actually, backprop fails on a number of models that people don't usually explore. And I remember models, so some models, sometimes for example conditional Gaussian mixtures, are pretty hard to train with backprop.</p>
+    </section>
+
+    <section>
+        <h2>3. Credit Assignment vs. Biological Plausibility</h2>
+        <p>But anyways, I guess I was more interested in thinking about, for example, comparing different credit assignment mechanisms. Like in REINFORCE, which is the main thing people use in reinforcement learning, I think we have another alternative to credit assignment through many steps of computation. But I have a strong feeling that it doesn't scale. That as the number of units or decisions grows, it's not going to work, and that backprop has something fundamentally stronger in favor for it. And it would be nice to characterize what that is.</p>
+        <p>Well, one of the issues with backpropagation is that the amount of memory that it requires scales with the amount of time that you're considering. So if the human brain were using an algorithm like backpropagation for learning, it would have to store literally all of the activations that have ever been in the neurons, and that's not tractable. And I think somehow it has to be generating relevant values from the past, but we don't know what that looks like concretely.</p>
+        <p>Right, right. So you're right, there's the issue of biological plausibility. That there's a problem with backprop. You don't need to save it, you could just kind of re-run your inference computation. So you could save some key points, some yeah, and then reconstruct it. For this, where um, rats replay their memories backwards when after they've done a maze, right? Or the firing patterns replay in reverse sequence. So something is going on there. Uh, they are able to recreate the neural trajectories somehow. And yeah, what you're saying seems like the most plausible.</p>
+    </section>
+
+    <section>
+        <h2>4. The Memory Problem: The "Study" Example</h2>
+        <p>What, okay, but that wouldn't still solve the question of how brains do anything like backprop even for, uh, not that long sequence, but one sort of 100-millisecond time slot. And somehow you have to be able to deal with the issue of sparsity, which is that if you're considering what could have caused a problem that you have right now with your learning in the past, you probably don't want to consider all of the learning that you've done in the past. You probably just want to consider specific events from the past.</p>
+        <p>Uh, could you elaborate on what you're saying?</p>
+        <p>Oh, so, uh, let's say I start taking a class, and I make a decision about whether I'm going to study or not. And then, and then I get to the final exam and I get, like, a zero percent because I didn't study. The decision that I need to improve upon is the decision that I made months ago, right? So somehow I need to pick out that specific point in time.</p>
+        <p>That's right, that's right. And it gets very hard for something, anything like backprop to do that because if you use something like backprop, we've seen in all of the modern work with memory nets and so on that you need soft attention, right? You need to give a little bit of credit to many possible things. And if the number of such things is very large, like the number of things that happened in my life in the last three months, then we're in trouble. It must be something else that we're doing.</p>
+    </section>
+
+    <section>
+        <h2>5. Compartmentalization & Backpropagating Through Abstract Models</h2>
+        <p>But on these two different things: on the one hand, backprop does local optimization. So you make a decision, or you actually don't make a decision because everything is determined. Are you saying, be careful to use the word backprop not to mean gradient descent? So backprop does the credit assignment and then gradient descent uses it to go down the gradient. And the thing I think that really we don't understand is backprop and gradient descent. I mean, we don't, we don't understand, we'd like to generalize, but the way we think about backprop also means that everything is kind of deterministic. So all your activations have a specific value given your input.</p>
+        <p>Right, right. And one thing you said just makes sense to explore more. So to get kind of, instead of only getting these local groups... so with REINFORCE you have to explore way too much. But too much, and it seems like what we're missing from REINFORCE is, I mean the reason you get lost in the variance is just you have this combinatorial explosion, but we're missing in REINFORCE some way of compartmentalizing these huge combinations, right?</p>
+        <p>Yes, and I think that's what backprop does. I think you're putting the finger on the right point, which is I think when I backpropagate through my simplified model of what reality is, and in that sense it's because I don't have the luxury of having the actual model. Whereas in reinforcement learning, that's a very common problem, right? Yeah, they sort of model the world as they can, and then they backprop through your model. It's called, I mean in the old days in the 80s, I think they call that actor-critic. So the critic is your proxy for how the world would react to your actions. Yeah, prediction of the reward.</p>
+        <p>So maybe in Alex's example with the "do I study or not" and "do I get a zero"—it's a good example, yeah. Um, in this case, it's because there's a simplified model above that. So it's not really like the daily actions like "do I eat breakfast today, does that influence my decision to keep not studying" and so on. It's really the simplified "study yes/no leads to this, leads to that." And then you can make it finer, but you backpropagate through that higher-up abstract abstraction. Yeah, yeah, we wouldn't be able to backprop through three months of life by going through each second, right?</p>
+    </section>
+
+    <section>
+        <h2>6. Intermediate Rewards & Learning Predictive Models</h2>
+        <p>So can you do something? So I think there's an instructive bit of this example, which is the reason that most courses aren't structured around a 100% counting exam is that you structure intermediate... okay, well, you know there's arguments to be made about that, but, um, in most courses you have some sort of intermediate feedback, right? And I think what we're missing from REINFORCE is some principled way of deriving an immediate intermediate reward.</p>
+        <p>Rewarding backwards is one example, right? Yeah, backprop or target prop is a way to try to compute a desired feedback, and I think we should think more about ways to learn this credit assignment machinery. So all of the encoder-decoder, Helmholtz machines, you know, variational autoencoder, they have this spirit if you look carefully: that you learn a kind of inverse mapping or a reward credit assignment machinery, basically, that goes in the other direction.</p>
+        <p>I guess it's very dangerous to go via introspection into what we think how we act, but still, um, it seems we humans even have multiple models that we choose, that we switch between even when we make decisions, right? So there doesn't seem to be a contradiction to just kind of have a full family of models.</p>
+        <p>I mean, so how does it help us with the discussion here? I'm a bit confused. It just is kind of an additional point that you don't have to use one model in the backward direction, and maybe one global model that tries to model... that's your actual objective that you try... learns sort of the expected reward given your actions, for example. And then, uh, so let's call that R-hat of 'a', right? Um, and so then you could use backprop instead. See, if you're able to get a good model of the world where you just observe actions and some states and you observe rewards, right? Then if you have backprop, you can backprop through the model of the world. It's not the real world of course, you can't backprop through the real world as you were saying, but you can backprop through that.</p>
+    </section>
+
+    <section>
+        <h2>7. Dealing with Discrete Actions & Entropy</h2>
+        <p>Now, of course, the issue that we're discussing here is that what do you do if 'a' is discrete, right? If the actions are discrete, then you're really in trouble because that whole story about backprop falls down. So this thing is not new, people have been doing this since the late 80s, but uh, it's only for actions that are continuous. And also there are some issues: like if the model is not good enough, then you might actually have a lot of trouble, and you still need some kind of exploration. Otherwise, you believe, let's say I believe that it's very bad to go in my office, so I never go in my office and I never discovered that actually it's a pretty nice place and I should actually go spend more time there, right?</p>
+        <p>Um, so, uh, so but but so we can... I think it's pretty obvious to me that the brain learns a model of the world. In other words, a predictive model. Because there are things you cannot, you can never experience yourself. Like, I've never died of a car accident, and so I don't have any training examples to tell me how I should behave to avoid that directly, right? Like by immediate experience. The only way I can learn to act correctly here is by building a model. And the way I would get this model is not by observing pairs of 'a' and 'r', it is because I have actually a predictive model, like an unsupervised learning model, that tells me what will be the future observations given the current state, right? So this has to be mediated through a model of the world that tells me what's gonna happen in the future based on the current state and my actions. So this model-based reinforcement learning is needed at some point, right, for some really complicated types of learning where we can't experience some of the things. The only way we can do is deduce them, and that has to be done through a pretty abstract level of how the world works.</p>
+        <p>What I find interesting is that with the VAE and like also related to wake-sleep kind of things, we see that whenever we have another model, this model likes to have entropy, so there's some pressure to explore automatically from there. Right, right, right. So I find it interesting and that goes back to what Chalar was saying.</p>
+        <p>So yeah, this question of adding noise and entropy comes up almost everywhere. And I think if we deal with discrete actions that I was talking about, then maybe you have no choice, right? Because we can't play the game of infinitesimal changes, but you can say 'a' actually comes from some distribution P(a|state), right? So if 'a' comes from some distribution, now that means I have to sample different actions, and maybe we can find a way to get some credit on the P rather than the 'a' itself. And straight-through is kind of a cheat to say, "Oh, I have a gradient on the 'a', I do like if 'a' was continuous and I'm gonna pass it as if it created a gradient on the P," right? So it's a very cheap trick which we're playing with, and it would be nice to have a better theory. But in all cases, you do need this kind of noise injection and entropy as you're saying.</p>
+    </section>
+
+    <section>
+        <h2>8. Real-world Complexity and the Smoothness of Cost Functions</h2>
+        <p>Anyway, do you even think that humans have properly solved that in things that we will need to solve before we ever get to the level of sort of abstract human reasoning? Like we're able to plan on a micro scale how to reach over and pick up an object, and that already is hard. And that's extremely hard. So worrying about how, you know, guided policy search how a robot will plan its career so that it can qualify for a mortgage... But it's just a way to say let's be humble about it, not think that we have solved it all and we only need to map what we do to machines and then they would be wonderful like we are.</p>
+        <p>Let's yeah. And I think what you're saying is about your decisions and beliefs being self-reinforcing. And that's, I think that's your inference model overfitting to the data that it has almost, or at least overfitting the data that it wants, and then you have circularity about intentions and things like that.</p>
+        <p>But so random observation, yeah, has anyone ever done research about the shape of the area in which a particular discrete decision stays constant?</p>
+        <p>Uh, maybe I don't understand your question. So you mean like the simplex of parameter settings under which a particular discrete event is constant? So what information... I don't know the answer to your question, but I had a very big surprise recently when I saw some visualization of the cost function projected in low dimension for rectifier networks, deep rectifier networks. And you would think, because rectifier networks are made of these pieces, right, so you would expect that the overall cost function would be some kind of piecewise linear thing with a lot of pieces. But it turns out that when you look at the cost function of these neural nets projected in low D because we can visualize it, it looks incredibly smooth, right? So, you know, they have these 3D things, and of course if you zoom in you will see some small piecewise linear elements. But so there's something funny about composing many discrete decisions such that at the end of the day, so many in parallel and sequence, right, like in a neural net. And at the end of the day you end up with something that looks overall very smooth with respect to changes in the parameters, right? Because this is induced, this is in the parameter space, right? This is theta, and this is the cost.</p>
+        <p>If it's a classifier loss, though, then the loss, well like a log likelihood, yes, then the loss is a smooth function of the output. So that's the parameters, but you would expect that changing the parameters would make switches in which neurons turn on and are active or inactive, right? Yeah, and that would induce a kind of piecewise linear shape that could be arbitrarily complicated. Yeah, and you would think it might have many ups and downs and things like that, but it turns out it's very, very smooth, and that's kind of surprising. It's kind of counter-intuitive.</p>
+        <p>But that's over your whole training set. I mean, you average over a lot of numbers, so if you have a lot of these kinky things you wind up with...</p>
+        <p>Well, okay, so that's a good question. I'm not sure whether that was for a single example or for the whole training set. If it was for a single example, that would be troubling; if it was for the whole training set, that large numbers... So this is very related to the small dimensional subspace. I mean, there's no reason to suspect in my mind that it isn't like maybe if you could view if you're aligned with the activations or something, then of course it's full of kinks. But if you're just smooth sailing on the linear region, if you could visualize this thing in the actual, you know, million-dimensional parameters, like it probably would look much more non-linear. To the extent that things in a million-dimensional space look like this edges go like not orthogonal to each other, so whenever you project you always see that. So this effect might be just due to the low dimensionality of the projection.</p>
+        <p>That's possible. I don't think so, and this doesn't surprise me so much in light of two pieces of evidence that are already there. Number one is the fact that you can find adversarial examples by just taking the sign of the gradient and doing a small step, right? And this intuition was from the fact that as a function of their input, our networks are very, very, very linear. The other one, also due to Ian, is the observation that between the initialization point and the minimum, there really aren't any... yeah, we don't see, at least on that straight line, any ups and downs. Yes, yes, that's not the trajectory we've followed your learning, but yeah, that's...</p>
+    </section>
+
+</body>
+</html>
