@@ -143,6 +143,7 @@ span.highlight {
 
 body {
   animation: pageFadeIn 0.18s ease;
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
 }
 
 @keyframes pageFadeIn {
