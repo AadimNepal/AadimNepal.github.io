@@ -1,32 +1,68 @@
 <!DOCTYPE HTML>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Miscellaneous | Aadim Nepal</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Miscellaneous – Aadim Nepal</title>
+  <meta name="author" content="Aadim Nepal">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+  <style>
+    html { overflow-y: scroll; }
+    .nav-link { display: block; padding: 9px 0; font-size: 15px; font-weight: 700; color: #1772d0; text-decoration: none; }
+    .nav-link:hover { color: #f09228; }
+    .nav-link.current { color: #333; cursor: default; pointer-events: none; }
+    .misc-item { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+    .misc-item:last-child { border-bottom: none; }
+    .misc-item a { font-size: 15px; font-weight: 700; }
+    .misc-item p { margin: 5px 0 0; color: #222; line-height: 1.6; font-size: 14px; }
+  </style>
 </head>
+
 <body>
-  <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+  <table style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
     <tbody>
-      <tr>
-        <td style="padding:20px">
-          <p><a href="index.html">&larr; Back</a></p>
-          <h2>Miscellaneous</h2>
-          <br>
-          <p>
-            <a href="yoshua.html"><strong>Brainstorm Session: Generalizing Backprop</strong></a><br>
-            A structured transcript of a lab discussion with Yoshua Bengio and students on generalizing backpropagation, credit assignment, and biological plausibility.
-          </p>
-          <p>
-            <a href="world-modeling-workshop.html"><strong>World Modeling Workshop 2026 &mdash; Day 1</strong></a><br>
-            Notes from six talks and a panel at Mila, Montreal. Speakers include Schmidhuber, Shuran Song, Shirley Ho, Bengio, LeCun, and Assran.
-          </p>
-          <p>
-            <a href="panel.html"><strong>World Modeling Workshop 2026 &mdash; Panel Discussion</strong></a><br>
-            A full, edited transcript of the Day 1 panel discussion. Features Yoshua Bengio, Yann LeCun, Randall, and others debating the mechanics and future of world models.
-          </p>
+      <tr style="padding:0px">
+        <td style="padding:0px">
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+              <tr>
+
+                <!-- Sidebar -->
+                <td style="padding:30px 20px;width:150px;min-width:150px;max-width:150px;vertical-align:top;">
+                  <a class="nav-link" href="index.html">Home</a>
+                  <a class="nav-link" href="blog.html">Blog</a>
+                  <a class="nav-link current">Miscellaneous</a>
+                  <br>
+                  <a class="nav-link" href="debate.html">Debate</a>
+                  <a class="nav-link" href="swimming.html">Swimming</a>
+                  <a class="nav-link" href="around-the-world.html">Around the World</a>
+                  <a class="nav-link" href="what-really-matters.html">What Really Matters</a>
+                </td>
+
+                <!-- Main content -->
+                <td style="padding:30px 20px;vertical-align:top;">
+                  <h2>Miscellaneous</h2>
+                  <p style="margin-top:8px;margin-bottom:24px;">Notes, transcripts, and other writing that doesn&#8217;t fit elsewhere.</p>
+
+                  <div class="misc-item">
+                    <a href="misc/yoshua.html">Brainstorm Session: Generalizing Backprop</a>
+                    <p>Yoshua Bengio asks his lab: what if backprop is wrong? Two hours of honest back-and-forth on credit assignment, biology, and whether gradient descent has any business being in a brain. No clean answers, which is kind of the point.</p>
+                  </div>
+                  <div class="misc-item">
+                    <a href="misc/workshop.html">World Modeling Workshop 2026 &mdash; Day 1</a>
+                    <p>Six talks at Mila on world models, from Schmidhuber&#8217;s 1990 work to LeCun&#8217;s JEPA to robots that learn from video. My notes from a day where everyone seemed to agree the field is at an interesting moment but disagree on everything else.</p>
+                  </div>
+                  <div class="misc-item">
+                    <a href="misc/panel.html">World Modeling Workshop 2026 &mdash; Panel Discussion</a>
+                    <p>LeCun and Bengio in the same room, disagreeing about almost everything. Full transcript of the panel. Worth reading just to see two brilliant people talk past each other in very illuminating ways.</p>
+                  </div>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
         </td>
       </tr>
     </tbody>
