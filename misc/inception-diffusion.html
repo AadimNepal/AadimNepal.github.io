@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>The Information Bottleneck: Stefano Ermon on Diffusion Language Models – Aadim Nepal</title>
+  <meta name="author" content="Aadim Nepal">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+  <style>
+    html { overflow-y: scroll; }
+    .nav-link { display: block; padding: 9px 0; font-size: 15px; font-weight: 700; color: #1772d0; text-decoration: none; }
+    .nav-link:hover { color: #f09228; }
+    .nav-link.current { color: #333; cursor: default; pointer-events: none; }
+    .post-body p { line-height: 1.85; margin-bottom: 16px; color: #222; font-size: 15px; }
+    .post-title { font-family: 'Lato', Verdana, Helvetica, sans-serif; font-size: 20px; font-weight: 700; margin: 0 0 6px; }
+    .post-subtitle { color: #777; font-style: italic; margin: 0 0 24px; font-size: 13px; }
+    .section-heading { font-family: 'Lato', Verdana, Helvetica, sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #555; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #f0f0f0; }
+  </style>
+</head>
+<body>
+  <table style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
+        <td style="padding:30px 20px;width:150px;min-width:150px;max-width:150px;vertical-align:top;">
+          <a class="nav-link" href="../index.html">Home</a>
+          <a class="nav-link" href="../bio.html">Bio</a>
+          <a class="nav-link" href="../blog.html">Blog</a>
+          <a class="nav-link current">Miscellaneous</a>
+          <br>
+          <a class="nav-link" href="../debate.html">Debate</a>
+          <a class="nav-link" href="../swimming.html">Swimming</a>
+          <a class="nav-link" href="../around-the-world.html">Around the World</a>
+          <a class="nav-link" href="../what-really-matters.html">What Really Matters</a>
+        </td>
+        <td style="padding:30px 20px;vertical-align:top;" class="post-body">
+          <p style="margin-bottom:20px;"><a href="../miscellaneous.html">&#8592; Back to Miscellaneous</a></p>
+          <p class="post-title">The Information Bottleneck: Stefano Ermon on Diffusion Language Models</p>
+          <p class="post-subtitle">Podcast notes &middot; The Information Bottleneck &middot; March 2026</p>
+
+          <p class="section-heading">Overview</p>
+          <p><strong>Stefano Ermon</strong> is a professor at Stanford and co-founder and CEO of <strong>Inception AI</strong>, a startup building commercial-scale diffusion language models. His research group published the first score-based diffusion model paper in 2019, years before diffusion became the dominant paradigm for image generation. This conversation on The Information Bottleneck covers the history and mechanics of diffusion, the case for applying diffusion to language, what the theoretical picture actually looks like for discrete spaces, how Inception's Mercury 2 model performs today, and what any of this implies for hardware, research careers, and AGI timelines.</p>
+          <p>What follows are structured notes reconstructed from the conversation, organized by topic rather than strict chronological order.</p>
+
+          <p class="section-heading">Why diffusion and where it came from</p>
+          <p>Ermon's entry point into diffusion was dissatisfaction with GANs as generative models. GANs were unstable and limited in expressiveness. Autoregressive models were an alternative but not obviously the right one either. The path to diffusion came through score matching: the key realization was that instead of training a model to generate samples directly, you could train it to estimate the gradient of the log-density (the score function) and then use that to run a Langevin-style chain. The follow-on insight was that annealing the chain across noise levels &mdash; from nearly pure noise down to the data distribution &mdash; made the chains mix much faster in practice.</p>
+          <p>What attracted Ermon to this framing was a property that did not yet have a name: <strong>test-time depth</strong>. You train efficiently by denoising (a cheap supervised loss at each noise level), but at inference you can unroll as many denoising steps as you want. The compute graph at inference time can be arbitrarily deep, decoupled from the training objective. This anticipated the later interest in test-time compute scaling &mdash; the model can "think longer" simply by using more denoising steps, without any changes to training.</p>
+          <p>There is also a theoretical cleanliness to the approach. The denoising objective is a proper scoring rule: in the limit of infinite data it recovers the true score function. This is a stronger guarantee than the adversarial losses used in GANs, and it made the training notably more stable.</p>
+
+          <p class="section-heading">What diffusion actually does: the typewriter vs. editor analogy</p>
+          <p>The cleanest way Ermon frames the distinction between autoregressive and diffusion models is the <strong>typewriter vs. editor</strong> analogy. An autoregressive model is a typewriter: it commits to tokens left to right, one at a time, each conditioned on everything before it. There is no going back. A diffusion model is an editor: it starts from a rough draft (pure noise) and iteratively refines the entire output, fixing errors globally across the sequence at each step.</p>
+          <p>Both framings are valid generative processes. There is a formal sense in which an autoregressive model is a special case of a diffusion model &mdash; one where the noise is structured to remove tokens left to right, so the denoising process happens to produce the next token at each step. The gap between the paradigms is therefore not as sharp as it might appear architecturally.</p>
+
+          <p class="section-heading">Quality, speed, and creativity: are diffusion models fundamentally different?</p>
+          <p>A common empirical observation is that diffusion image models feel "more creative" and tend to avoid the mode-collapsing artifacts (the orange filter, the repetitive aesthetic) that autoregressive image models develop. Ermon is cautious about treating this as a fundamental property. Quality, creativity, and failure modes are all functions of training data, architecture, objective, and sampling procedure &mdash; not of the generative paradigm per se. A well-trained diffusion model should not be systematically worse in quality than an autoregressive one.</p>
+          <p>The more structural claim he does defend is about <strong>inference efficiency and parallelism</strong>. Autoregressive models are sequential by construction: generating token N requires having generated tokens 1 through N-1. This makes inference memory-bound and un-parallelizable at the token level. Diffusion models modify many tokens simultaneously at each denoising step. If the number of steps needed is small (which it often is in practice), this gives a significant throughput advantage. Ermon frames this as arithmetic intensity: autoregressive inference moves weights around memory with very few multiplications per byte moved; diffusion inference can stay in the compute-bound regime where hardware is more efficiently utilized.</p>
+          <p>On the question of temperature scaling: Ermon notes that temperature has a clear meaning in energy-based models (scale the energy function) but is more ambiguous in discrete diffusion. Models built on masked diffusion don't have a natural analog, and various "temperature" implementations in diffusion LLMs are often ad hoc. This is an open design question, not a settled practice.</p>
+
+          <p class="section-heading">Scaling diffusion language models: has it worked?</p>
+          <p>The claim that diffusion language models can't be scaled to frontier quality is one Ermon pushes back on directly. The argument from the field has been that autoregressive training worked, massive resources went into it, and no one managed to replicate that success with diffusion text models at comparable scale. His counterargument is that this is a resource allocation story, not a fundamental limitation. Inception's Mercury 2 and Google's Gemini Diffusion are offered as proof points that commercial-scale diffusion LMs are possible.</p>
+          <p>The key inflection point was a <strong>best paper at ICML 2024</strong> from Ermon's group showing that, at GPT-2 scale, diffusion language models achieved comparable quality to autoregressive models while being significantly faster. This result, at the boundary of what the lab could compute, made the case for scaling compelling enough to justify a company.</p>
+          <p>Mercury 2 today is described as not yet frontier-level quality &mdash; if you are using a frontier model and need the absolute best answer, it is probably not a full replacement yet. But for tasks with tight latency budgets (voice agents, inline code suggestions, developer tooling with sub-second response requirements), it is claimed to be best-in-class, matching the quality of speed-optimized autoregressive models while being significantly faster due to parallelism.</p>
+
+          <p class="section-heading">Discrete diffusion: does the theory still hold for text?</p>
+          <p>Continuous diffusion has clean mathematics: score functions, Fokker-Planck equations, stochastic differential equations. Text is discrete. The natural question is whether this is a workaround or a real theoretical extension.</p>
+          <p>Ermon's answer is that the theory translates more faithfully than most people expect. The continuous score function (gradient of the log-density) has a discrete analog called the <strong>concrete score</strong>, which describes how the likelihood changes with local edits to a discrete sequence. This object can be learned through a discrete analog of denoising score matching. The math is different in details but follows the same pattern: you get a proper scoring rule, you get tractable objectives, and you get the same decoupling of training from inference.</p>
+          <p>Masking (absorbing state diffusion) is one noise process for discrete spaces, but it is not the only one. The general theory admits any noise process with tractable transition kernels that allows efficient score matching. The space of valid noise processes for discrete diffusion is broader than masking, and future work may find that other choices are better in practice. The constraint is the same as in continuous diffusion: the noising process must be something you can reverse, and the transition kernels must be tractable enough to compute the denoising objective.</p>
+
+          <p class="section-heading">Theory and practice: what does mathematical intuition actually buy you?</p>
+          <p>Ermon's background spans information theory and empirical deep learning, and he is honest about the gap between them. The theory is not predictive. It cannot tell you which experiment will work, what hyperparameters to use, or why a given model generalizes despite the curse of dimensionality making generalization seem impossible. Deep learning theory, by his account, is "far from being predictive of any interesting experiment."</p>
+          <p>What theory does provide is <strong>search space pruning</strong>. It gives intuitions for which directions are worth trying, which objectives have the right theoretical properties (stability, proper scoring, numerical conditioning), and which architectural choices are at least not wrong in principle. Knowing that the denoising objective is a proper scoring rule tells you it converges to the right answer with infinite data &mdash; that doesn't mean it will work in practice, but it eliminates a class of failure modes. That's often enough to decide which experiments to run first.</p>
+          <p>Loss function design is where theory pays off most directly. Different divergences and scoring rules all have the same global optimum in theory, but they behave very differently with finite data, especially in the tails of the distribution. Understanding which loss functions are brittle to distribution mismatch or numerically unstable is the kind of thing that saves weeks of debugging.</p>
+
+          <p class="section-heading">Hardware and the structural advantage of parallel generation</p>
+          <p>Modern GPU hardware has been co-evolved with autoregressive workloads. KV caching, memory bandwidth optimization, and inference serving engines like vLLM and TensorRT are all designed around the assumption that you generate one token at a time. None of this infrastructure maps naturally to diffusion inference, which has a fundamentally different computation graph.</p>
+          <p>NVIDIA is listed as an investor in Inception. Ermon's interpretation is that chip companies need to understand what alternative workloads look like years before they can change hardware designs. If diffusion models become a major inference paradigm, the hardware team needs to know now.</p>
+          <p>The deeper point is structural. Autoregressive inference is <strong>memory-bound by construction</strong>: you move weights from HBM to compute units and do very few operations on them per byte moved. This is not fixable by better hardware; it is a property of the sequential computation graph. Diffusion inference can be compute-bound if the number of steps is small and the parallelism across tokens is high. Getting into the compute-bound regime is exactly where hardware efficiency scales well. This is one reason Ermon is confident the architecture will win on the "intelligence per watt" metric over long timelines.</p>
+
+          <p class="section-heading">Advice for PhD students: where to do research now</p>
+          <p>Ermon's advice is pointed. Architecture search and optimization algorithms are off the table for most PhD students because you cannot test ideas at meaningful scale without compute that academic labs don't have. Results at small scale often don't transfer, and the field has moved too fast for academic groups to have a genuine edge on these questions.</p>
+          <p><strong>Inference</strong> is the recommended direction. Accelerating inference, controllable generation, and sampling algorithms all have interesting open questions that are tractable at academic compute budgets and are likely to matter a lot as the field shifts toward test-time scaling. The questions are hard and the compute requirements are within reach. That combination is rare and worth exploiting.</p>
+
+          <p class="section-heading">Founding Inception: from academic breakthrough to company</p>
+          <p>The founding decision was not primarily strategic &mdash; it was driven by an experiment that could not be run in an academic lab. After the ICML 2024 result at GPT-2 scale, the obvious next question was whether the advantage held at 10x or 100x scale. Answering that required compute and engineering capacity that were simply unavailable in a university setting.</p>
+          <p>Ermon distinguishes between startups that start with a vague ambition and raise money to discover what to build, and startups that start with a specific technical result and raise money to scale it. Inception was the latter. The mission of the company is, by his description, not that different from the mission of his Stanford lab &mdash; both are fundamentally about understanding whether diffusion is a better foundation for generative AI. The difference is execution speed, team size, and the ability to concentrate resources on a single bet rather than fragmenting across individual student projects.</p>
+          <p>On money as a motivation: Ermon notes that staying in academia for years when he could have taken more lucrative industry jobs is itself evidence that money is not the primary driver. The current window &mdash; where a specific technical approach might define the next generation of AI infrastructure &mdash; is the stated motivation, alongside scientific curiosity about whether the scaling results hold.</p>
+
+          <p class="section-heading">AI coding tools and software engineers</p>
+          <p>On whether current AI coding tools are replacing software engineers: Ermon says no, with a concrete recent example. In the past week, a low-level infrastructure problem at Inception (some workflow that should have been async wasn't) stumped the best frontier models completely and had to be diagnosed by hand by a human engineer. This is not an edge case &mdash; reliability-critical infrastructure work routinely falls outside what models handle well. The tools accelerate engineers; they do not replace them. His engineers use agentic coding tools and inline suggestions and do get productivity gains. But the gains compound on top of engineering judgment, not in place of it.</p>
+
+          <p class="section-heading">AGI timelines and recursive self-improvement</p>
+          <p>Ermon describes himself as "generally more pessimistic than other people" on timelines. He does not think AGI is coming next year. He is explicit that Inception is betting on longer timelines &mdash; specifically because shorter timelines would not leave enough room for Inception to be competitive with labs that have a multi-year head start on scale. He acknowledges that AI tools already provide a form of weak recursive self-improvement (engineers using AI to write AI research code faster), but is skeptical of strong claims about how much this compounds or how quickly.</p>
+          <p>On the broader question of whether the current transformer-plus-autoregressive paradigm will still define frontier AI in twenty years: he considers it unlikely that the first approach that worked is also the optimal one. The diffusion bet is specifically a bet that the field found a local optimum early and has been stuck there due to path dependence and capital accumulation, not because it is the global optimum.</p>
+
+          <p class="section-heading">PhD vs. industry: a shifting calculus</p>
+          <p>Ermon's view on this has changed. The financial gap between academia and industry in AI has widened substantially, and the window of high compensation in AI research is arguably time-limited. For someone who is primarily motivated by financial outcomes, going directly to a frontier lab now may genuinely be a better decision than a five-year PhD. For someone motivated by teaching, long-horizon research, or academic freedom, the PhD is still the right path.</p>
+          <p>On what a PhD actually confers: paper-writing ability and the capacity to explain and defend ideas clearly are cited as things PhD training develops better than industry. Coding discipline and software engineering rigor are things that industry experience (especially in big tech) often develops better. The counterfactual comparison &mdash; five years of industry research vs. five years of PhD &mdash; is genuinely ambiguous in terms of research capability, and heavily depends on what kind of research you want to do and where.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
