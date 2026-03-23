@@ -132,7 +132,7 @@
                   <br>
                   <a href="https://arxiv.org/abs/2506.22638">arXiv</a>
                   <p></p>
-                  <p>Math reasoning depends on a few critical layers that form during pre-training and remain stable across all post-training methods. Removing these layers reduces math accuracy by up to 80%, while factual recall shows smaller drops.</p>
+                  <p>We find that a small number of layers are responsible for most of the mathematical reasoning ability in LLMs. These layers form during pre-training and do not change after post-training, regardless of the method used. Removing them drops math accuracy by up to 80%, while factual recall is spread more evenly across layers and holds up better.</p>
                 </td>
               </tr>
 
@@ -154,7 +154,7 @@
                   <br>
                   <a href="https://arxiv.org/abs/2505.13718">arXiv</a>
                   <p></p>
-                  <p>A two-stage training strategy that warms up with simple logic puzzles before applying RLVR, enabling sample-efficient reasoning under limited supervision.</p>
+                  <p>We show that training on simple logic puzzles before applying RLVR helps models learn to reason more effectively. This warm-up step improves performance even with limited data and compute, making it a practical approach for resource-constrained settings.</p>
                 </td>
               </tr>
 
@@ -176,7 +176,7 @@
                   <br>
                   <a href="https://arxiv.org/abs/2505.14216">arXiv</a>
                   <p></p>
-                  <p>RLVR improves accuracy on easier questions but struggles with capability, while distillation can improve both&mdash;but only when new knowledge is introduced.</p>
+                  <p>We compare RLVR and distillation for improving LLM reasoning. RLVR improves accuracy on problems the model can already attempt but does not expand what it can solve. Distillation can improve both, but only when the teacher model brings in knowledge the student did not already have.</p>
                 </td>
               </tr>
 
@@ -198,7 +198,7 @@
                   <br>
                   <a href="https://arxiv.org/abs/2505.02677">arXiv</a>
                   <p></p>
-                  <p>A multimodal deep neural network combining OCT and infrared retinal scans with clinical data for stroke prediction, achieving 5% AUROC improvement over image-only baselines and 8% over existing foundation models.</p>
+                  <p>We build a multimodal model that combines retinal OCT scans, infrared fundus images, and clinical data to predict and detect stroke. Using all three modalities together improves AUROC by 5% over image-only models and by 8% over existing retinal foundation models.</p>
                 </td>
               </tr>
 
