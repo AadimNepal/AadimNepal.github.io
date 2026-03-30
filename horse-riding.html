@@ -3,7 +3,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>What Really Matters – Aadim Nepal</title>
+  <title>Horse Riding – Aadim Nepal</title>
   <meta name="author" content="Aadim Nepal">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
@@ -13,6 +13,27 @@
     .nav-link { display: block; padding: 9px 0; font-size: 15px; font-weight: 700; color: #1772d0; text-decoration: none; }
     .nav-link:hover { color: #f09228; }
     .nav-link.current { color: #333; cursor: default; pointer-events: none; }
+    .photo-hero {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 4px;
+      display: block;
+    }
+    .photo-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .photo-row img {
+      flex: 1;
+      width: 0;
+      height: 340px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 4px;
+    }
   </style>
 </head>
 
@@ -29,14 +50,19 @@
                   <a class="nav-link" href="blog.html">Blog</a>
                   <a class="nav-link" href="miscellaneous.html">Miscellaneous</a>
                   <br>
-                  <a class="nav-link" href="debate.html">Debate</a>
                   <a class="nav-link" href="swimming.html">Swimming</a>
                   <a class="nav-link" href="around-the-world.html">Around the World</a>
-                  <a class="nav-link current">What Really Matters</a>
+                  <a class="nav-link current">Horse Riding</a>
                 </td>
                 <td style="padding:30px 20px;vertical-align:top;">
-                  <h2>What Really Matters</h2>
-                  <p style="margin-top:8px;color:#555;">Photos and memories coming soon.</p>
+                  <h2>Horse Riding</h2>
+                  <div class="photo-row">
+                    <img src="images/horse_2.jpg" alt="Horse riding">
+                    <img src="images/horse_3.jpg" alt="Horse riding">
+                  </div>
+                  <p style="margin:10px 0 20px;font-size:14px;color:#555;line-height:1.6;">Horse riding classes in Gokarna Forest, Nepal. The horse's name was Kaji. I thought I was controlling Kaji. Kaji knew otherwise. He went where he wanted, at the pace he chose. I was just along for the ride, holding the reins like they meant something.</p>
+                  <img src="images/horse_1.jpg" alt="Horse riding at the pyramids" style="margin-top:10px;width:100%;border-radius:4px;display:block;">
+                  <p style="margin:10px 0 0;font-size:14px;color:#555;line-height:1.6;">First time on a horse, on the way to Giza. I didn't know how to steer, didn't know how to stop. The pyramid was right there and I was just trying not to fall. Fear and wonder at the same time. Turns out that's a good way to see something ancient.</p>
                 </td>
               </tr>
             </tbody>
