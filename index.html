@@ -6,7 +6,7 @@
   <title>Aadim Nepal</title>
   <meta name="author" content="Aadim Nepal">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Aadim Nepal - AI Researcher at NYU Abu Dhabi">
+  <meta name="description" content="Aadim Nepal — energy-based models, planning, and online decision-making">
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
 </head>
@@ -26,15 +26,18 @@
                     Aadim Nepal
                   </p>
                   <p>
-                    I am a graduating senior at <a href="https://nyuad.nyu.edu/">NYU Abu Dhabi</a>, double majoring in Mathematics and Computer Science, advised by Professor <a href="https://scholar.google.com/citations?user=RhUcYmQAAAAJ&hl=en">Keith Ross</a>.
+                    I graduated from <a href="https://nyuad.nyu.edu/">NYU Abu Dhabi</a> with a double major in Mathematics and Computer Science. I am currently a junior research scientist there, advised by Professor <a href="https://scholar.google.com/citations?user=RhUcYmQAAAAJ&amp;hl=en">Keith Ross</a>.
                   </p>
                   <p>
-                    
-                    Previously, I worked on LLM reasoning and interpretability. Currently, I focus on how to get systems to learn from the physical world. I am interested in how principles from neuroscience and biology can inform the design of models that plan, predict, and generalize the way biological systems do.
+                    I work on <strong>energy-based models for online decision-making</strong>, with an emphasis on agents that learn to plan and adapt through interaction. I also collaborate closely with <a href="https://yilundu.github.io/">Yilun Du</a> at Harvard.
+                  </p>
+                  <p class="phd-notice">
+                    I am looking for PhD opportunities beginning Fall 2027.
+                  </p>
                   <p style="text-align:center">
                     <a href="mailto:an3854@nyu.edu">Email</a> &nbsp;/&nbsp;
                     <a href="data/AadimNepal-CV.pdf">CV</a> &nbsp;/&nbsp;
-                    <a href="https://scholar.google.com/citations?hl=en&user=VNrmCEIAAAAJ">Scholar</a> &nbsp;/&nbsp;
+                    <a href="https://scholar.google.com/citations?hl=en&amp;user=VNrmCEIAAAAJ">Scholar</a> &nbsp;/&nbsp;
                     <a href="https://x.com/NepalAadim">Twitter</a> &nbsp;/&nbsp;
                     <a href="https://github.com/AadimNepal">GitHub</a> &nbsp;/&nbsp;
                     <a href="blog.html">Blog</a> &nbsp;/&nbsp;
@@ -55,6 +58,10 @@
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <h2>Recent News</h2>
                   <div class="news-scroll">
+                    <div class="news-item">
+                      <span class="news-date">Aug 2026</span>
+                      <span class="news-text"><a href="https://openreview.net/forum?id=65n0NStQUi">Decomposed Contrastive Critics for Continual Reinforcement Learning</a> appeared at the <strong>Continual Reinforcement Learning Workshop at RLC 2026</strong>.</span>
+                    </div>
                     <div class="news-item">
                       <span class="news-date">Dec 2025</span>
                       <span class="news-text"><a href="https://arxiv.org/abs/2506.22638">Layer Importance for Mathematical Reasoning</a> and <a href="https://arxiv.org/abs/2505.14216">RL vs. Distillation</a> accepted at the <strong>NeurIPS MATH-AI Workshop 2025</strong>.</span>
@@ -81,7 +88,7 @@
                     </div>
                     <div class="news-item">
                       <span class="news-date">Jan 2025</span>
-                      <span class="news-text">Started my senior thesis with <a href="https://scholar.google.com/citations?user=RhUcYmQAAAAJ&hl=en">Prof. Keith Ross</a> at the <strong>Deep Learning Lab, NYU Abu Dhabi</strong>, working on LLM interpretability and reasoning.</span>
+                      <span class="news-text">Started my senior thesis with <a href="https://scholar.google.com/citations?user=RhUcYmQAAAAJ&amp;hl=en">Prof. Keith Ross</a> at the <strong>Deep Learning Lab, NYU Abu Dhabi</strong>, working on LLM interpretability and reasoning.</span>
                     </div>
                     <div class="news-item">
                       <span class="news-date">Jun 2023</span>
@@ -100,7 +107,10 @@
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <h2>Research</h2>
                   <p>
-                    I am interested in using model-based RL for System 2 planning. I study how systems can learn physical dynamics through self-supervised learning and world models. Much of my past work is in LLM reasoning and interpretability, but I am now focused on the foundational question of how to build human-level AI. Representative papers are <span class="highlight">highlighted</span>.
+                    My research asks how energy-based models can support planning and online decision-making. I combine generative models, world models, and reinforcement learning to build agents that learn from interaction and reason over possible futures.
+                  </p>
+                  <p>
+                    Most of my published work is in LLM reasoning and interpretability. I entered this area after joining Keith Ross's lab with little research experience and following the lab's existing direction. As I gained independence, I returned to energy-based models, which first interested me in Yann LeCun's course, and shifted toward online decision-making and planning. I view LLMs as useful tools, not a complete model of intelligence, and now work on online EBM planning with Yilun Du and Keith Ross. Representative papers are <span class="highlight">highlighted</span>.
                   </p>
                 </td>
               </tr>
@@ -110,6 +120,51 @@
           <!-- ==================== PAPERS ==================== -->
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
             <tbody>
+              <!-- ===== ONGOING: Online Energy-Based Trajectory Planning ===== -->
+              <tr bgcolor="#ffffd0">
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="trajectory-placeholder" aria-label="Online energy-based trajectory planning illustration">
+                    <span class="trajectory-line"></span>
+                    <span class="trajectory-dot trajectory-dot-start"></span>
+                    <span class="trajectory-dot trajectory-dot-middle"></span>
+                    <span class="trajectory-dot trajectory-dot-goal"></span>
+                    <span class="trajectory-label">EBM PLANNING</span>
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <span class="papertitle">Online Energy-Based Trajectory Planning</span>
+                  <br>
+                  <strong>Aadim Nepal</strong>, Yilun Du<sup>*</sup>, Keith Ross<sup>*</sup>
+                  <br>
+                  <em>Ongoing work</em>, 2026
+                  <p>We are exploring a modular view of reinforcement learning in which different parts of the decision process are represented by distinct learned energy functions. As experience accumulates, these energies can be updated and composed to guide trajectory-level planning, support diverse plans, improve exploration, and adapt online as the model of the environment changes.</p>
+                </td>
+              </tr>
+
+              <!-- ===== PAPER 1: Decomposed Contrastive Critics ===== -->
+              <tr bgcolor="#ffffd0">
+                <td style="padding:20px;width:25%;vertical-align:middle">
+                  <div class="paper-placeholder" aria-label="Decomposed Contrastive Critics illustration">
+                    <span class="critic-node critic-node-positive">+</span>
+                    <span class="critic-node critic-node-negative">−</span>
+                    <span class="critic-connector"></span>
+                    <span class="critic-label">DCC</span>
+                  </div>
+                </td>
+                <td style="padding:20px;width:75%;vertical-align:middle">
+                  <a href="https://openreview.net/forum?id=65n0NStQUi">
+                    <span class="papertitle">Decomposed Contrastive Critics for Continual Reinforcement Learning</span>
+                  </a>
+                  <br>
+                  Yumi Omori, Zixuan Dong, <strong>Aadim Nepal</strong>, Ashok Timsina, Keith Ross
+                  <br>
+                  <em>Continual Reinforcement Learning Workshop at RLC</em>, August 2026
+                  <br>
+                  <a href="https://openreview.net/forum?id=65n0NStQUi">paper</a>
+                  <p>We decompose a goal-conditioned contrastive critic into a shared component learned across tasks and a task-specific component reset for each new task. On the hardest Continual World V2 tasks, this improves performance by 67% and 78% over naive contrastive approaches.</p>
+                </td>
+              </tr>
+
               <!-- ===== PAPER 2: Layer Importance (HIGHLIGHTED) ===== -->
               <tr bgcolor="#ffffd0">
                 <td style="padding:20px;width:25%;vertical-align:middle">

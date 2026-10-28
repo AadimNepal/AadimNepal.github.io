@@ -134,6 +134,126 @@ span.highlight {
   background-color: #ffffd0;
 }
 
+.phd-notice {
+  color: #b42318;
+  background: #fff1f0;
+  border-left: 3px solid #d92d20;
+  padding: 8px 10px;
+  font-weight: 700;
+}
+
+.paper-placeholder {
+  width: 160px;
+  height: 120px;
+  position: relative;
+  border-radius: 8px;
+  background: #f4f7fb;
+  border: 1px solid #d8e1ec;
+  overflow: hidden;
+}
+
+.trajectory-placeholder {
+  width: 160px;
+  height: 120px;
+  position: relative;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #eef6f1, #f4f7fb);
+  border: 1px solid #cedfd5;
+  overflow: hidden;
+}
+
+.trajectory-line {
+  position: absolute;
+  left: 33px;
+  top: 47px;
+  width: 94px;
+  height: 2px;
+  background: #718096;
+  transform: rotate(-12deg);
+}
+
+.trajectory-dot {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+.trajectory-dot-start {
+  left: 25px;
+  top: 49px;
+  background: #344054;
+}
+
+.trajectory-dot-middle {
+  left: 70px;
+  top: 37px;
+  background: #1772d0;
+}
+
+.trajectory-dot-goal {
+  right: 24px;
+  top: 28px;
+  background: #2e8b57;
+}
+
+.trajectory-label {
+  position: absolute;
+  bottom: 17px;
+  width: 100%;
+  text-align: center;
+  color: #344054;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.critic-node {
+  position: absolute;
+  top: 25px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: white;
+  font-size: 25px;
+  line-height: 36px;
+  text-align: center;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.critic-node-positive {
+  left: 30px;
+  background: #2e8b57;
+}
+
+.critic-node-negative {
+  right: 30px;
+  background: #b42318;
+}
+
+.critic-connector {
+  position: absolute;
+  top: 43px;
+  left: 62px;
+  width: 36px;
+  height: 2px;
+  background: #718096;
+}
+
+.critic-label {
+  position: absolute;
+  bottom: 17px;
+  width: 100%;
+  text-align: center;
+  color: #344054;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
 .colored-box {
     color: black;
     padding: 20px;
